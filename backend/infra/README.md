@@ -1,7 +1,11 @@
 # Hybrid Infrastructure - Anshuman's Domain
 
-## Owner: Anshuman (Hybrid Infrastructure Engineer)
+## Owner: Anshuman (Hybrid Infrastructure Engineer + Consensus Logic)
 ## Branch: `feat/anshuman-hybrid`
+
+> **Team Structure**: Kaustuv (AI) | Jatin (Data Science) | Anshuman (Cloud + Consensus) | Anshul (Marketing & Finance - see `docs/MARKETING_STRATEGY.md`)
+>
+> **Note:** Anshuman also owns the **Consensus Configuration** module (`config/README.md`) which was reassigned from Anshul (BBA student).
 
 ---
 
@@ -17,6 +21,8 @@ The **Hybrid Infrastructure** layer manages routing between Cloud APIs (Gemini, 
 |------|---------|----------|
 | `router.py` | HybridRouter with Cloud/Local routing | HIGH |
 | `__init__.py` | Module exports | LOW |
+| **Also:** `config/consensus_matrix.json` | Consensus weights (from config module) | HIGH |
+| **Also:** `config/scoring/` | Game theory, veto logic | HIGH |
 
 ---
 

@@ -3,6 +3,8 @@
 ## Owner: Jatin (Digital Twin Architect)
 ## Branch: `feat/jatin-twin`
 
+> **Team Structure**: Kaustuv (AI) | Jatin (Data Science) | Anshuman (Cloud + Consensus) | Anshul (Marketing & Finance - see `docs/MARKETING_STRATEGY.md`)
+
 ---
 
 ## Overview

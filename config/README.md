@@ -1,7 +1,11 @@
-# Consensus Configuration - Anshul's Domain
+# Consensus Configuration - Anshuman's Domain
 
-## Owner: Anshul (Consensus Logic Engineer)
-## Branch: `feat/anshul-logic`
+## Owner: Anshuman (Consensus Logic Engineer + Hybrid Infrastructure)
+## Branch: `feat/anshuman-consensus`
+
+> **Team Structure**: Kaustuv (AI) | Jatin (Data Science) | Anshuman (Cloud + Consensus) | Anshul (Marketing & Finance - see `docs/MARKETING_STRATEGY.md`)
+>
+> **Note:** This technical module was originally assigned to Anshul but has been reassigned to Anshuman (Cloud Computing) since it requires programming skills.
 
 ---
 
@@ -362,4 +366,6 @@ pytest tests/test_consensus.py -v -k "test_weights"
 
 ## Contact
 
-For questions about Consensus Logic, contact **Anshul** or create an issue with the label `consensus-logic`.
+For questions about Consensus Logic, contact **Anshuman** or create an issue with the label `consensus-logic`.
+
+> **For Marketing & Financial tasks**, contact **Anshul** or see `docs/MARKETING_STRATEGY.md`.

@@ -8,14 +8,21 @@ Each team member should complete their section before the system is production-r
 
 ## Project Status Overview
 
-| Component | Owner | Status | Progress |
-|-----------|-------|--------|----------|
-| Swarm Engine | Kaustuv | 🟡 In Progress | 30% |
-| Digital Twin | Jatin | 🟡 In Progress | 25% |
-| Hybrid Infrastructure | Anshuman | 🟡 In Progress | 35% |
-| Consensus Logic | Anshul | 🟡 In Progress | 40% |
-| Integration Tests | All | 🔴 Not Started | 0% |
-| Documentation | All | 🟡 In Progress | 50% |
+| Component | Owner | Background | Status | Progress |
+|-----------|-------|------------|--------|----------|
+| Swarm Engine | **Kaustuv** | AI | 🟡 In Progress | 30% |
+| Digital Twin | **Jatin** | Data Science | 🟡 In Progress | 25% |
+| Hybrid Infrastructure | **Anshuman** | Cloud Computing | 🟡 In Progress | 35% |
+| Consensus Logic | **Anshuman** | Cloud Computing | 🟡 In Progress | 40% |
+| **Marketing & Finance** | **Anshul** | BBA | 🟡 In Progress | 10% |
+| Integration Tests | All (Technical) | - | 🔴 Not Started | 0% |
+| Documentation | All | - | 🟡 In Progress | 50% |
+
+> **Team Structure Note:**
+> - **Anshul (BBA)** - Handles ONLY Marketing & Financial tasks. See `docs/MARKETING_STRATEGY.md`
+> - **Kaustuv (AI)** - All Swarm Engine AI/ML code
+> - **Jatin (Data Science)** - Digital Twin data science code
+> - **Anshuman (Cloud Computing)** - Infrastructure + Consensus Logic (technical)
 
 ---
 
@@ -36,7 +43,7 @@ These tasks require coordination between multiple team members.
   - Implement proper error handling chain
 
 - [ ] **INTEGRATION-003**: Connect Consensus → Digital Twin
-  - Owner: Anshul + Jatin
+  - Owner: **Anshuman** + Jatin
   - Load consensus weights based on teacher persona
   - Apply grading_mode from teacher preferences
 
@@ -58,7 +65,7 @@ These tasks require coordination between multiple team members.
   - Create admin API for adding teachers
 
 - [ ] **STORAGE-003**: Add evaluation history storage
-  - Owner: Anshul
+  - Owner: **Anshuman** *(reassigned from Anshul)*
   - Store all evaluations for audit
   - Create query API for history
 
@@ -97,7 +104,7 @@ These tasks require coordination between multiple team members.
   - Upload feedback examples
 
 - [ ] **FRONTEND-003**: Analytics dashboard
-  - Owner: TBD + Anshul
+  - Owner: TBD + **Jatin** *(Anshul provides business requirements)*
   - Grade distribution charts
   - Agent performance metrics
 
@@ -120,7 +127,7 @@ These tasks require coordination between multiple team members.
   - Test all failover scenarios
 
 - [ ] **TEST-004**: Add consensus calculation tests
-  - Owner: Anshul
+  - Owner: **Anshuman** *(reassigned from Anshul)*
   - Test all grading modes
 
 ### Integration Tests
@@ -221,7 +228,7 @@ These tasks require coordination between multiple team members.
   - Validate all inputs
 
 - [ ] **SEC-003**: Audit logging
-  - Owner: Anshul
+  - Owner: **Anshuman** *(reassigned from Anshul)*
   - Log all evaluations
   - Track who accessed what
 
@@ -245,7 +252,11 @@ Example:
 
 ## Quick Links
 
-- [Swarm README](backend/swarm/README.md) - Kaustuv's TODOs
-- [Digital Twin README](backend/digital_twin/README.md) - Jatin's TODOs
-- [Infrastructure README](backend/infra/README.md) - Anshuman's TODOs
-- [Consensus README](config/README.md) - Anshul's TODOs
+### Technical Team
+- [Swarm README](backend/swarm/README.md) - **Kaustuv's TODOs** (AI)
+- [Digital Twin README](backend/digital_twin/README.md) - **Jatin's TODOs** (Data Science)
+- [Infrastructure README](backend/infra/README.md) - **Anshuman's TODOs** (Cloud Computing)
+- [Consensus README](config/README.md) - **Anshuman's TODOs** (Reassigned from Anshul)
+
+### Business Team
+- [Marketing Strategy](docs/MARKETING_STRATEGY.md) - **Anshul's TODOs** (BBA - Marketing & Finance ONLY)

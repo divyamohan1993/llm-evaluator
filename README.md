@@ -40,14 +40,23 @@
 
 Each team member has their own branch and dedicated folder. **Read your folder's README for detailed instructions and TODO lists.**
 
-| Engineer | Role | Branch | Folder | Instructions |
-|----------|------|--------|--------|--------------|
-| **Kaustuv** | AI Swarm Engineer | `feat/kaustuv-swarm` | `backend/swarm/` | [📖 Swarm README](backend/swarm/README.md) |
-| **Jatin** | Digital Twin Architect | `feat/jatin-twin` | `backend/digital_twin/` | [📖 Digital Twin README](backend/digital_twin/README.md) |
-| **Anshuman** | Hybrid Infrastructure | `feat/anshuman-hybrid` | `backend/infra/` | [📖 Infra README](backend/infra/README.md) |
-| **Anshul** | Consensus Logic | `feat/anshul-logic` | `config/` | [📖 Consensus README](config/README.md) |
+### Technical Team (Programming Required)
 
-### Getting Started (For Team Members)
+| Engineer | Background | Role | Branch | Folder | Instructions |
+|----------|------------|------|--------|--------|--------------|
+| **Kaustuv** | AI | Swarm Engine | `feat/kaustuv-swarm` | `backend/swarm/` | [📖 Swarm README](backend/swarm/README.md) |
+| **Jatin** | Data Science | Digital Twin | `feat/jatin-twin` | `backend/digital_twin/` | [📖 Digital Twin README](backend/digital_twin/README.md) |
+| **Anshuman** | Cloud Computing | Infrastructure + Consensus | `feat/anshuman-hybrid` | `backend/infra/` + `config/` | [📖 Infra README](backend/infra/README.md), [📖 Consensus README](config/README.md) |
+
+### Business Team (No Programming Required)
+
+| Team Member | Background | Role | Instructions |
+|-------------|------------|------|--------------|
+| **Anshul** | BBA | Marketing & Finance | [📖 Marketing Strategy](docs/MARKETING_STRATEGY.md) |
+
+> **Note:** Consensus Logic was originally assigned to Anshul but has been **reassigned to Anshuman** since it requires programming skills. Anshul focuses exclusively on market research, financial projections, and business strategy.
+
+### Getting Started (For Technical Team Members)
 
 1. **Clone the repo and switch to your branch:**
    ```bash
@@ -73,6 +82,12 @@ Each team member has their own branch and dedicated folder. **Read your folder's
    - Run all tests (Python 3.10 & 3.11)
    - Merge your changes to `main` if tests pass
    - Sync `main` changes to all other feature branches
+
+### Getting Started (For Anshul - Business Team)
+
+1. **Read your instructions:** See [Marketing Strategy Guide](docs/MARKETING_STRATEGY.md)
+2. **Tools you'll use:** Word, Excel, PowerPoint, Google Docs - no coding required!
+3. **Deliverables location:** `docs/` folder for all business documents
 
 
 ## 🔄 Auto-Push Monitor

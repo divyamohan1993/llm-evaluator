@@ -3,6 +3,8 @@
 ## Owner: Kaustuv (AI Swarm Engineer)
 ## Branch: `feat/kaustuv-swarm`
 
+> **Team Structure**: Kaustuv (AI) | Jatin (Data Science) | Anshuman (Cloud + Consensus) | Anshul (Marketing & Finance - see `docs/MARKETING_STRATEGY.md`)
+
 ---
 
 ## Overview
