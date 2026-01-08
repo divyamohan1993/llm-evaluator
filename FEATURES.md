@@ -147,6 +147,64 @@ Calculate your ROI:
 
 ---
 
+## 🔬 Patent-Pending Technologies (Novelty & Non-Obviousness)
+
+We have integrated 5 breakthrough technologies that distinguish SmartEvaluator-Omni from any existing system, designed specifically for **Intellectual Property protection**:
+
+### 1. 🧠 **Cognitive Gap Analysis (CGA) Protocol**
+*Method for detecting academic dishonesty by reconstructing missing cognitive intermediate steps.*
+
+- **The Innovation**: Traditional AI detectors look for "AI patterns" in the text. CGA looks for **what is missing**.
+- **How It Works**:
+    1. The system attempts to "chain-of-thought" reverse-engineer the student's answer.
+    2. If a student jumps from `Premise A` to `Complex Conclusion Z` without the necessary intermediate logical steps (Steps B, C, D), the system flags a **"Cognitive Gap"**.
+    3. Large gaps indicate the student copied the result without understanding the derivation.
+- **Backend Tech**: `Reverse-Inference LLM` + `Logic Tree Mapper`.
+
+### 2. 👿 **Ephemeral Adversarial Auditors (EAA)**
+*Self-correcting consensus mechanism using ephemeral adversarial agents.*
+
+- **The Innovation**: Prevents "AI Groupthink" where all agents agree effectively but wrongly.
+- **How It Works**:
+    1. If the Swarm reaches a quick consensus (>90% confidence), the system **automatically spawns a 5th "Devil's Advocate" Agent**.
+    2. This agent is programmatically forced to **disprove** the consensus (e.g., "Find a reason why this 'A' paper is actually a 'C'").
+    3. If the Adversarial Agent generates a valid argument that sways >1 original agent, the grading restarts.
+- **Backend Tech**: `Dynamic Agent Spawning` + `Conflict Resolution Weighted Voting`.
+
+### 3. 📐 **Tri-Vector Contextual Alignment (TVCA)**
+*Tri-partite knowledge graph comparison for distinguishing 'correct via Google' vs 'correct via learning'.*
+
+- **The Innovation**: Distinguishes between "Internet Knowledge" (generic correctness) and "Curriculum Knowledge" (taught concepts).
+- **How It Works**:
+    1. Constructs 3 latent Knowledge Graphs:
+       - **Vector A**: The Syllabus & Lecture Notes.
+       - **Vector B**: The Global Internet Knowledge Base.
+       - **Vector C**: The Student's Answer.
+    2. **The "Alignment Score"**: If Vector C aligns more with Vector B than Vector A (e.g., using terms not taught in class), the grade is adjusted for "Out-of-Scope" sourcing.
+- **Backend Tech**: `Graph Neural Networks (GNN)` + `Latent Space Triangulation`.
+
+### 4. 🎭 **Temporal Biophysical Mimicry (Digital Twin v2)**
+*Human-mimetic temporal latency injection for naturalistic AI interactions.*
+
+- **The Innovation**: The Digital Twin doesn't just write like a teacher; it **behaves** like one in the time domain.
+- **How It Works**:
+    1. Analyzes the cognitive load of reading the student's essay (e.g., dense handwriting needs more time).
+    2. **Artificially injects variable latency**: The system "pauses" on complex paragraphs and "speeds up" on simple ones.
+    3. Result: Students see "Typing..." indicators and timestamp gaps that identically match human grading patterns, preventing "it's too fast to be real" suspicion.
+- **Backend Tech**: `Cognitive Load Estimator` + `Variable Latency Scheduler`.
+
+### 5. ⚡ **Neuro-Symbolic Logic Verifier (NSLV)**
+*Hybrid neuro-symbolic transformation for deterministic validation of natural language answers.*
+
+- **The Innovation**: Solves the "LLM Math Problem" (LLMs are bad at verifiable logic).
+- **How It Works**:
+    1. **Translation**: Converts student's natural language answer (Physics/Math/Coding) into **Formal Logic Code** (Z3 Theorem Prover or Python).
+    2. **Execution**: It *runs* the code to mathematically prove correctness.
+    3. **Verification**: If the text says "Therefore X=5" but the symbolic execution says "X=4", the student is marked wrong *even if the text sounds convincing*.
+- **Backend Tech**: `LLM-to-Symbolic Transpiler` + `Sandboxed Theorem Prover`.
+
+---
+
 ## 🎓 Perfect For
 
 - ✅ **Universities & Colleges** — Handle thousands of exams fairly

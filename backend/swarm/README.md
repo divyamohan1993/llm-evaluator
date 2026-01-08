@@ -61,9 +61,24 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 
 ### ⚡ AGENTIC ACCELERATION ENABLED
 **Timeline Compressed via Antigravity, Jules, & Claude Code.**
-**Target:** Enterprise Grade | **Speed:** Extreme
+**Target:** Production Ready | **Speed:** Extreme
 
-### 🔰 PRE-REQUISITES (Do this first!)
+### � PATENTABLE FEATURE IMPLEMENTATION (NEW PRIORITY)
+**Goal**: Build the "method" behind our IP claims.
+- [ ] **Feature #1: Cognitive Gap Analyzers** (`backend/swarm/agents/cga_agent.py`):
+  - Build the "Reverse-Inference" chain that maps the logical steps required to reach the student's conclusion.
+  - Flag answers that skip >60% of logical steps as "Rote Copying".
+- [ ] **Feature #2: Ephemeral Adversarial Auditors** (`backend/swarm/adversary.py`):
+    - **Logic**: If Swarm Confidence > 0.9, spawn a 5th agent (The Adversary).
+    - **Prompt**: "You are a Devil's Advocate. Find a reason to DOWNGRADE this answer."
+    - **Action**: If Adversary convinces 1 other agent, trigger a re-grading loop.
+- [ ] **Feature #5: Neuro-Symbolic Logic Verifier** (`backend/swarm/agents/logic_agent.py`):
+    - **Task**: Convert natural language math/code answers into Z3 Theorem Prover code.
+    - **Verify**: Run the code. If `proof == False` but `text == convincing`, flag as "Hallucination".
+
+
+
+### �🔰 PRE-REQUISITES (Do this first!)
 - [ ] **Install Python 3.10+**: `python --version` to check.
 - [ ] **Install Core Libraries**:
   ```bash
@@ -229,7 +244,7 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 
 ---
 
-### BONUS: Week 2 - Enterprise Features
+### BONUS: Week 2 - Features
 
 #### 6.1 Multi-Language Support
 - [ ] **Internationalization**:

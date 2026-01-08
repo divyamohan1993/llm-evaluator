@@ -71,6 +71,22 @@ The **Hybrid Infrastructure** layer manages routing between Cloud APIs (Gemini, 
 **Timeline Compressed via Antigravity, Jules, & Amazon Q.**
 **Target:** Production Ready | **Speed:** Extreme
 
+### 🔬 PATENTABLE FEATURE IMPLEMENTATION (NEW PRIORITY)
+**Goal**: Build the "method" behind our IP claims.
+- [ ] **Feature #3: Tri-Vector Contextual Alignment (TVCA)** (`backend/infra/vectors.py`):
+  - **Task**: Setup 3 distinct Vector Indices (ChromaDB Collections):
+    1. `syllabus_index` (Lecture notes/PDFs)
+    2. `world_index` (Wikipedia subset/Google cache)
+    3. `student_index` (The answer itself)
+  - **Action**: Expose an API for `calculate_alignment_vectors(answer_id)` that returns cosine similarity scores for all 3.
+- [ ] **Support for Ephemeral Adversaries**:
+    - **Task**: Create a lightweight Docker container profile (or Kubernetes Job) that can spin up in <500ms for the "Adversary Agent".
+    - **Resource Mgmt**: Ensure these containers are `kill`ed immediately after the vote to save costs.
+- [ ] **Sandboxed Logic Execution (for NSLV)**:
+    - **Task**: Create a secure, isolated Python environment (Bubblewrap or gVisor) where the "Logic Verifier" can run generated code to prove student answers without security risks.
+
+
+
 ### 🔰 PRE-REQUISITES (Do this first!)
 - [ ] **Install Tools**: Docker Desktop, Kubernetes (Minikube usually), Helm, Vault.
 - [ ] **Install Python Libs**:
@@ -228,7 +244,7 @@ The **Hybrid Infrastructure** layer manages routing between Cloud APIs (Gemini, 
 
 ---
 
-### BONUS: Week 2 - Enterprise Features
+### BONUS: Week 2 - Features
 
 #### 6.1 Multi-Region Deployment
 - [ ] **Global Load Balancing**:

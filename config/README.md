@@ -69,7 +69,22 @@ The **Consensus Configuration** defines the mathematical weighting logic that de
 
 ### ⚡ AGENTIC ACCELERATION ENABLED
 **Timeline Compressed via Antigravity, Jules, & OpenAI Codex.**
-**Target:** Enterprise Grade | **Speed:** Extreme
+**Target:** Production Ready | **Speed:** Extreme
+
+### 🔬 PATENTABLE FEATURE IMPLEMENTATION (NEW PRIORITY)
+**Goal**: Build the "method" behind our IP claims.
+- [ ] **Feature #3: TVCA Scoring Formula** (`config/math/alignment.py`):
+  - **Task**: Implement the Alignment Formula:
+    `Score = Cos(Student, Syllabus) - (0.5 * Cos(Student, World))`
+  - **Config**: Define the `0.5` penalty weight in `consensus_matrix.json`.
+- [ ] **Feature #1: Cognitive Gap Thresholds**:
+    - **Task**: Define `MAX_ALLOWED_GAP = 0.4` (40% missing steps).
+    - **Action**: If `gap > MAX`, trigger `flag_for_review`.
+- [ ] **Feature #2: Adversary Trigger Logic**:
+    - **Task**: Define `ADVERSARY_TRIGGER_CONFIDENCE = 0.92`.
+    - **Action**: If `agent_agreement > 0.92`, return `status: "spawn_adversary"` instead of `final_grade`.
+
+
 
 ### 🔰 PRE-REQUISITES (Do this first!)
 - [ ] **Install Python Libs**:
@@ -187,7 +202,7 @@ The **Consensus Configuration** defines the mathematical weighting logic that de
 
 ---
 
-### Day 5: Enterprise Analytics
+### Day 5: Analytics
 
 #### 5.1 Bias Dashboard
 - [ ] **Correlation Engine**:
@@ -204,7 +219,7 @@ The **Consensus Configuration** defines the mathematical weighting logic that de
 
 ---
 
-### BONUS: Week 2 - Enterprise Features
+### BONUS: Week 2 - Features
 
 #### 6.1 Machine Learning Weights
 - [ ] **Learn Optimal Weights**:
