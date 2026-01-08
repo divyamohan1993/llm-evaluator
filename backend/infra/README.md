@@ -226,6 +226,64 @@ The **Hybrid Infrastructure** layer manages routing between Cloud APIs (Gemini, 
   - **Step**: `encrypted_data = aes_encrypt(data, student_key)`.
   - **Erasure**: To "delete" the data, we just delete the `student_key`. The data is now unintelligible garbage forever.
 
+---
+
+### BONUS: Week 2 - Enterprise Features
+
+#### 6.1 Multi-Region Deployment
+- [ ] **Global Load Balancing**:
+  - Deploy to US, EU, Asia regions
+  - Route users to nearest datacenter
+  - Cross-region failover
+
+#### 6.2 Edge Computing
+- [ ] **Cloudflare Workers**:
+  - Run lightweight inference at edge
+  - Cache frequent responses
+  - Reduce latency to <100ms
+
+#### 6.3 GPU Cluster Management
+- [ ] **NVIDIA Triton**:
+  - Deploy models on GPU cluster
+  - Dynamic batching for efficiency
+  - Model versioning and A/B testing
+
+#### 6.4 Cost Dashboard
+- [ ] **Real-Time Cost Tracking**:
+  - Per-request cost breakdown
+  - Daily/weekly/monthly reports
+  - Budget alerts and auto-throttling
+
+#### 6.5 API Gateway
+- [ ] **Kong/AWS API Gateway**:
+  - Rate limiting per API key
+  - Request transformation
+  - API analytics and monitoring
+
+#### 6.6 Secrets Management
+- [ ] **HashiCorp Vault**:
+  - Dynamic API key rotation
+  - Audit logging for secret access
+  - Emergency key revocation
+
+#### 6.7 Blue-Green Deployments
+- [ ] **Zero-Downtime Updates**:
+  - Deploy new version alongside old
+  - Gradual traffic shift
+  - Instant rollback capability
+
+#### 6.8 Service Mesh
+- [ ] **Istio/Linkerd**:
+  - Automatic mTLS between services
+  - Traffic splitting for canary releases
+  - Observability and tracing
+
+#### 6.9 Database Scaling
+- [ ] **Read Replicas**:
+  - PostgreSQL read replicas for analytics
+  - Redis cluster for caching
+  - Connection pooling with PgBouncer
+
 
 
 ---

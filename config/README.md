@@ -202,6 +202,64 @@ The **Consensus Configuration** defines the mathematical weighting logic that de
   - **Step**: Design HTML template: `<h1>Annual Accreditation Report</h1>...`.
   - **Step**: `HTML(string=rendered_html).write_pdf("report.pdf")`.
 
+---
+
+### BONUS: Week 2 - Enterprise Features
+
+#### 6.1 Machine Learning Weights
+- [ ] **Learn Optimal Weights**:
+  - Collect teacher corrections
+  - Train regression model on corrections
+  - Auto-optimize agent weights per teacher
+
+#### 6.2 Explainable AI
+- [ ] **SHAP Values**:
+  - Show which agent contributed most to grade
+  - Visual breakdown of score components
+  - "Your fact score pulled down the grade by 15 points"
+
+#### 6.3 Appeals System
+- [ ] **Grade Appeals Workflow**:
+  - Students submit appeal with justification
+  - Re-evaluate with different random seed
+  - Human review queue for disputed grades
+
+#### 6.4 Anomaly Detection
+- [ ] **Statistical Outliers**:
+  - Flag unusually high/low grades for review
+  - Detect grading drift over time
+  - Alert on sudden accuracy drops
+
+#### 6.5 Multi-Rubric Support
+- [ ] **Custom Rubrics**:
+  - Teacher-defined rubric criteria
+  - Map agent outputs to rubric points
+  - Generate rubric-aligned feedback
+
+#### 6.6 Grade Prediction
+- [ ] **Student Performance Forecasting**:
+  - Predict final grade from early assignments
+  - Early warning system for at-risk students
+  - Intervention recommendations
+
+#### 6.7 Consensus Visualization
+- [ ] **Interactive Charts**:
+  - Spider/radar chart of agent scores
+  - Historical trend lines
+  - Comparison with class average
+
+#### 6.8 Regulatory Compliance
+- [ ] **FERPA/GDPR Compliance**:
+  - Data retention policies
+  - Right to explanation
+  - Audit trail for all grade changes
+
+#### 6.9 Grade Simulation
+- [ ] **What-If Analysis**:
+  - "What if I improve my structure score by 10?"
+  - Preview grade impact before submission
+  - Suggest improvements for target grade
+
 
 
 ---

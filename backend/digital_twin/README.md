@@ -216,6 +216,58 @@ The **Digital Twin Engine** creates a virtual replica of each teacher's grading 
   - **Payload**: `{"question_id": 123, "ai_grade": 70, "teacher_corrected_grade": 90}`.
   - **Action**: Immediately re-embed this answer with the metadata `{"grade": 90}` so the nearest neighbor search finds it next time.
 
+---
+
+### BONUS: Week 2 - Enterprise Features
+
+#### 6.1 Teacher Cloning
+- [ ] **Style Transfer**:
+  - Clone one teacher's style to another
+  - "Grade like Professor Smith but with Dr. Jones' strictness"
+  - Interpolate between multiple teacher personas
+
+#### 6.2 Voice Persona
+- [ ] **Text-to-Speech Feedback**:
+  - Generate audio feedback in teacher's voice
+  - Use ElevenLabs or Azure TTS
+  - Personalized pronunciation preferences
+
+#### 6.3 Emotional Intelligence
+- [ ] **Student Sentiment Detection**:
+  - Detect frustration/confusion in answers
+  - Adjust feedback tone accordingly
+  - Empathetic responses for struggling students
+
+#### 6.4 Learning Analytics
+- [ ] **Student Progress Tracking**:
+  - Track improvement over time
+  - Identify weak areas per student
+  - Generate personalized study recommendations
+
+#### 6.5 Multi-Modal Grading
+- [ ] **Image/Diagram Support**:
+  - Grade hand-drawn diagrams
+  - OCR for handwritten answers
+  - Math equation recognition (LaTeX)
+
+#### 6.6 Peer Comparison
+- [ ] **Class Ranking**:
+  - Anonymous peer comparison
+  - "Your answer is better than 75% of the class"
+  - Identify exemplar answers for sharing
+
+#### 6.7 Teacher Dashboard
+- [ ] **Analytics UI**:
+  - Grading time saved metrics
+  - Student performance heatmaps
+  - Pet peeve trigger frequency charts
+
+#### 6.8 API for LMS Integration
+- [ ] **Canvas/Moodle Integration**:
+  - Direct grade sync to LMS
+  - Assignment import
+  - Rubric mapping
+
 
 
 

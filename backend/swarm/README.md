@@ -227,6 +227,52 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
   - **Run**: `locust -f locustfile.py --users 100 --spawn-rate 10`.
   - **Goal**: Ensure Average Response Time < 2000ms.
 
+---
+
+### BONUS: Week 2 - Enterprise Features
+
+#### 6.1 Multi-Language Support
+- [ ] **Internationalization**:
+  - Support grading in Hindi, Spanish, French, German
+  - Use language detection: `langdetect` library
+  - Route to language-specific prompts
+
+#### 6.2 Streaming Responses
+- [ ] **Server-Sent Events (SSE)**:
+  - File: `backend/swarm/stream.py`
+  - Stream agent votes as they complete (don't wait for all 4)
+  - Frontend shows real-time progress bar
+
+#### 6.3 Agent Memory
+- [ ] **Conversation History**:
+  - Store last 5 evaluations per student
+  - Detect patterns: "This student always makes grammar mistakes"
+  - Personalized feedback based on history
+
+#### 6.4 Custom Agent Creation
+- [ ] **Agent Builder UI**:
+  - Allow teachers to create custom agents
+  - Example: "Citation Checker Agent" for research papers
+  - Hot-reload new agents without restart
+
+#### 6.5 Webhook Notifications
+- [ ] **Event System**:
+  - Fire webhooks on: evaluation_complete, plagiarism_detected, veto_triggered
+  - Integrate with Slack, Discord, Microsoft Teams
+  - Email notifications for critical events
+
+#### 6.6 Batch Processing Queue
+- [ ] **Redis Queue**:
+  - Queue large batch evaluations
+  - Process in background with Celery/RQ
+  - Progress tracking via WebSocket
+
+#### 6.7 Agent Marketplace
+- [ ] **Plugin System**:
+  - Package agents as pip-installable plugins
+  - Community-contributed agents
+  - Version management for agents
+
 
 
 
