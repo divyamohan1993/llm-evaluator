@@ -74,6 +74,19 @@ Each team member has their own branch and dedicated folder. **Read your folder's
    - Merge your changes to `main` if tests pass
    - Sync `main` changes to all other feature branches
 
+
+## 🔄 Auto-Push Monitor
+
+Stop worrying about manual commits. We have included an automated tool that watches your changes and syncs them to Git automatically.
+
+To start the monitor:
+1.  Open a terminal in the project root.
+2.  Run:
+```cmd
+.\monitor.bat
+```
+3.  Keep this window open. It will automatically detect changes, commit them with meaningful messages, and push to your branch.
+
 ## 🚀 Quick Start
 
 ```bash
