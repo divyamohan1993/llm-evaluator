@@ -1,0 +1,56 @@
+# =============================================================================
+# SmartEvaluator-Omni - Dependencies
+# Multi-Agent Swarm Platform for AI-Powered Examination Grading
+# =============================================================================
+
+# Core Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+python-multipart>=0.0.6
+
+# Async HTTP Client
+httpx>=0.25.0
+aiohttp>=3.9.0
+
+# LLM Orchestration
+langchain>=0.1.0
+langchain-community>=0.0.10
+langchain-google-genai>=0.0.5
+langchain-anthropic>=0.1.0
+langchain-openai>=0.0.5
+crewai>=0.1.0
+
+# Vector Database (Digital Twin Persona Storage)
+chromadb>=0.4.18
+# pinecone-client>=2.2.4  # Uncomment for cloud vector DB
+
+# Local LLM Inference (Ollama)
+ollama>=0.1.0
+
+# NLP & Text Analysis
+transformers>=4.35.0
+sentence-transformers>=2.2.2
+torch>=2.1.0
+
+# Plagiarism & AI Detection (BERT-based)
+# sklearn for similarity scoring
+scikit-learn>=1.3.0
+
+# PDF Processing
+pypdf2>=3.0.1
+pdfplumber>=0.10.3
+
+# Environment & Configuration
+python-dotenv>=1.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+
+# Development
+black>=23.11.0
+isort>=5.12.0
+mypy>=1.7.0
