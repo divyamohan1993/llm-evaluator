@@ -65,40 +65,58 @@ The **Consensus Configuration** defines the mathematical weighting logic that de
 ## MASSIVE TODO LIST
 
 
+
 ### ⚡ AGENTIC ACCELERATION ENABLED
 **Timeline Compressed via Antigravity, Jules, & OpenAI Codex.**
 **Target:** Enterprise Grade | **Speed:** Extreme
 
 ### Day 1: Advanced Mathematics
 - [ ] **TODO Anshul (Agent: Antigravity)**: **Game Theoretic Consensus**.
-  - Move beyond weighted averages. Implement **Nash Equilibrium** scoring.
-  - If 3 agents say 'A' and 1 fails, heavily penalize the outlier ONLY if confidence is low.
-  - **Bayesian Updating**: Update agent reliability scores in real-time based on their agreement with the consensus.
+  - **Objective**: Use math to find the "Truth" when agents disagree.
+  - **Step 1**: Use `NumPy` to create a matrix of Agent Votes vs Confidence Scores.
+  - **Step 2 (Nash Equilibrium)**: If 3 agents agree on 85% and one says 20%, calculate the "Cost of Deviation". If the outlier has low confidence, discard it.
+  - **Step 3 (Bayesian Update)**: Keep a running "Trust Score" for each agent. If Agent C (Structure) is consistently overruled by the Human Teacher, lower its weight for next time `(weight * 0.9)`.
 
 - [ ] **TODO Anshul (Agent: Jules)**: **Dynamic Rubric Generation**.
-  - Don't use static weights. Generate a custom rubric vector *per question* based on semantic complexity.
+  - **Objective**: Don't use the same ruler to measure a snake and a building.
+  - **Step 1**: When a question comes in, run a "Classifier Agent". Is this Math, History, or Creative Writing?
+  - **Step 2**: If Creative Writing, generate a Weight Vector: `{ "fact": 0.1, "creativity": 0.8 }`.
+  - **Step 3**: If History, generate: `{ "fact": 0.8, "creativity": 0.1 }`.
+  - **Step 4**: Apply this dynamic vector to the final score calculation instead of static config values.
 
 ### Day 2: The Veto Engine
 - [ ] **TODO Anshul**: **Hierarchical Veto Logic**.
-  - "Plagiarism" (Security Agent) > "Fact Error" (Fact Agent) > "Grammar" (Structure Agent).
-  - Implement **Override Codes**: Dean of Students can sign a cryptographically secured override key to bypass a veto.
+  - **Objective**: Some rules are absolute.
+  - **Step 1**: Define a Priority Queue of rules.
+  - **Step 2**: If `SecurityAgent` returns `plagiarism_detected=True`, this is Priority 0 (Highest). Immediately set `final_score = 0`.
+  - **Step 3**: If `FactAgent` returns `wrong_date`, this is Priority 2. Deduct 5 points.
+  - **Step 4 (Override Keys)**: Create a cryptographic key generator. The Dean can sign a `JWT` (JSON Web Token) that, when passed in the header, disables the Veto engine for a specific student appeal.
 
 ### Day 3: Trust & Verification (Blockchain)
 - [ ] **TODO Anshul (Agent: Codex)**: **On-Chain Grade Verification**.
-  - Hash every final grade + agent metadata (SHA-256).
-  - Publish the Merkle Root of the exam batch to a public ledger (e.g., Polygon/Ethereum).
-  - **Zero-Knowledge Proofs**: Prove a student passed without revealing their score.
+  - **Objective**: Make grades un-hackable.
+  - **Step 1**: Calculate `SHA-256` hash of `Student ID + Grade + Timestamp`.
+  - **Step 2**: Use `Web3.py` to connect to a public testnet (like Polygon Mumbai or Sepolia).
+  - **Step 3**: Publish this hash to a Smart Contract function `publishGradeHash(bytes32 _hash)`.
+  - **Step 4**: Give the student a transaction receipt. "Here is proof your grade was 92 on Jan 8th. No one can change it in the DB later."
+  - **Step 5 (Privacy)**: Use "Zero-Knowledge Proofs" (Circom/SnarkJS) so a student can prove "I got > 70%" to an employer without revealing they got exactly 71%.
 
 ### Day 4: Adaptive Intelligence
 - [ ] **TODO Anshul**: **Calibration Loop**.
-  - If the class average is 40% (too hard) or 95% (too easy), automatically suggest a curve adjustment to the professor *before* publishing grades.
-  - **A/B Testing**: Serve "Strict Mode" to 50% of anon submissions and "Lenient Mode" to 50% to measure impact (in dev only).
+  - **Objective**: Fairness across different exam difficulties.
+  - **Step 1**: Calculate the Class Mean and Standard Deviation using `scipy.stats`.
+  - **Step 2**: If Mean < 40% (Exam was too hard), finding the Z-Score.
+  - **Step 3**: Automatically apply a "Square Root Curve" `(NewScore = Sqrt(OldScore) * 10)` or a Linear Shift to bring Mean to 75%.
+  - **Step 4**: Present this "Suggested Curve" to the professor for one-click approval.
 
 ### Day 5: Enterprise Analytics
 - [ ] **TODO Anshul**: **Bias Detection Dashboard**.
-  - "Are we grading non-native English speakers harder?"
-  - Visualize correlation between "Vocabulary Complexity" and "Final Score".
-  - **Regulatory Reports**: Auto-generate PDFs for Accreditation Boards (ABET/WASC).
+  - **Objective**: Prove we aren't racist/sexist.
+  - **Step 1**: Ingest student metadata (anonymized).
+  - **Step 2**: Run a Correlation Analysis (`pandas.corr()`) between "Non-Native English Speaker Status" and "Grammar Score".
+  - **Step 3**: If the correlation is strong (> 0.5), alert the administration: "The Grammar Agent is punishing ESL students too harshly."
+  - **Step 4**: Generate a PDF Compliance Report using `weasyprint` for the University Accreditation Board.
+
 
 
 ---

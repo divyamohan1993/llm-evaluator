@@ -65,47 +65,73 @@ The **Hybrid Infrastructure** layer manages routing between Cloud APIs (Gemini, 
 ## MASSIVE TODO LIST
 
 
+
 ### ⚡ AGENTIC ACCELERATION ENABLED
 **Timeline Compressed via Antigravity, Jules, & Amazon Q.**
 **Target:** Enterprise Grade | **Speed:** Extreme
 
 ### Day 1: The Iron Defense (Zero Trust)
 - [ ] **TODO Anshuman (Agent: Antigravity)**: **Implement mTLS everywhere**.
-  - No service talks to another without a valid certificate.
-  - **Audit**: Rotate API keys every 60 minutes automatically using Vault.
-  - **DDoS Protection**: Rate limit by IP *and* by Student ID hash.
+  - **Objective**: "Zero Trust" means "Trust no one, not even inside our own network."
+  - **Step 1**: Use `OpenSSL` to generate a root Certificate Authority (CA).
+  - **Step 2**: Issue client certificates for the `Backend`, `Ollama`, and `Redis` containers.
+  - **Step 3**: Configure `Nginx` (or Traefik) to REJECT any connection that does not present a valid client certificate signed by our CA.
+  - **Step 4 (Audit)**: Integrate `HashiCorp Vault`. Write a script that automatically revokes and re-issues these keys every 60 minutes.
 
 - [ ] **TODO Anshuman (Agent: Jules)**: **Circuit Breaker v2.0 (Predictive)**.
-  - Don't wait for failure. If latency spikes > 200ms, *proactively* switch to fallback model before the timeout occurs.
-  - **Jitter**: Add randomized jitter to retries to prevent Thundering Herd problems.
+  - **Objective**: Don't just react to failure; predict it.
+  - **Step 1**: Track the "Moving Average" of latency for the last 10 requests.
+  - **Step 2**: If average latency climbs from 200ms -> 400ms -> 600ms, do NOT wait for a timeout. 
+  - **Step 3**: Immediately trip the breaker and switch to the Failover model (e.g., from Gemini to Claude). 
+  - **Step 4 (Jitter)**: When retrying, wait `random.uniform(0.5, 1.5)` seconds. This prevents "Thundering Herd" (everyone retrying at the exact same millisecond).
 
 ### Day 2: Multi-Cloud Sovereignty
 - [ ] **TODO Anshuman**: **Provider Agnostic Router**.
-  - **Active-Active Deployment**: If OpenAI (Azure) goes down, traffic seamlessly flows to Claude (AWS Bedrock) without dropping a single packet.
-  - **Sovereign Mode**: For Government exams, force routing ONLY to local Ollama instances (Air-gapped support).
+  - **Objective**: We must never go down, even if AWS goes down.
+  - **Step 1**: Create an abstraction layer `LLMInterface`.
+  - **Step 2**: Implement adapters for `AzureOpenAI`, `AWSBedrock`, and `GoogleVertex`.
+  - **Step 3**: If `azure_client.chat()` raises a 500 error, the router must instantly call `aws_client.chat()` with the exact same prompt.
+  - **Step 4 (Sovereign Mode)**: Add a config flag `GOVERNMENT_MODE=True`. If set, the router MUST physically block all calls to public clouds and only route to `http://localhost:11434` (Ollama).
 
 ### Day 3: Cost & Observability
 - [ ] **TODO Anshuman (Agent: Amazon Q)**: **Real-time Cost Arbitrage**.
-  - "Is this question simple?" -> Route to Llama 3 (Free).
-  - "Is this complex?" -> Route to GPT-4o ($$$).
-  - **Budget Enforcer**: Kill switches if burn rate exceeds $50/hour.
+  - **Objective**: Save money automatically.
+  - **Step 1**: Define a complexity score function `estimate_complexity(prompt)`.
+  - **Step 2**: If length < 50 chars ("What is 2+2?"), route to `Llama-3-8b` (Free).
+  - **Step 3**: If length > 2000 chars (Essay grading), route to `GPT-4o` (Powerful).
+  - **Step 4 (Budget Enforcer)**: Store `current_spend` in Redis. If `current_spend > $50`, switch ALL traffic to Llama-3 automatically.
 
 - [ ] **TODO Anshuman**: **Distributed Tracing (OpenTelemetry)**.
-  - Visualize the full lifecycle of a grade Request ID across 4 agents and 3 clouds.
-  - **Anomaly Detection**: Alert if "Token Usage vs Grade Score" correlation breaks.
+  - **Objective**: See where the time is going.
+  - **Step 1**: Install `opentelemetry-distro` and `opentelemetry-exporter-otlp`.
+  - **Step 2**: Instrument the FastAPI app: `FastAPIInstrumentor.instrument_app(app)`.
+  - **Step 3**: Visualize the waterfall chart in `Jaeger` or `Grafana`.
+  - **Step 4**: Set an alert: If "Token Usage" is high but "Grade Score" is 0 (failed response), trigger PagerDuty.
 
 ### Day 4: Extreme Scale
 - [ ] **TODO Anshuman**: **Kubernetes Horizontal Pod Autoscaling (HPA)**.
-  - Scale from 1 to 1000 pods based on distinct queue depth, not just CPU.
-  - **GPU Time-Slicing**: Share one A100 GPU across 10 concurrent Llama 3 instances for efficiency.
+  - **Objective**: Handle 100,000 students clicking "Submit" at once.
+  - **Step 1**: Don't scale on CPU. CPU is a bad metric for async apps.
+  - **Step 2**: Scale on `custom_metric_queue_depth`.
+  - **Step 3**: Install KEDA (Kubernetes Event-driven Autoscaling).
+  - **Step 4**: Definition: `If queue_length > 100, spawn 10 new pods`.
+  - **Step 5 (GPU Slicing)**: Use **NVIDIA MIG (Multi-Instance GPU)** to split one A100 card into 7 smaller instances so we can run 7 copies of Llama-3 on one physical card.
 
 ### Day 5: Compliance & Disaster Recovery
 - [ ] **TODO Anshuman**: **Chaos Mesh Drills**.
-  - Simulate a total region failure (us-east-1 down).
-  - **RPO/RTO Goal**: 0 data loss, <5s recovery time.
+  - **Objective**: Practice for the apocalypse.
+  - **Step 1**: Install `Chaos Mesh` on the cluster.
+  - **Step 2**: Scenario 1: "Network Partition". Cut the connection between the Backend and ChromaDB. Does the app show a nice error or crash?
+  - **Step 3**: Scenario 2: "Pod Kill". Kill the Redis leader. Does the app switch to the replica?
+  - **Goal**: RPO (Recovery Point Objective) = 0 data loss. RTO (Recovery Time Objective) < 5 seconds.
 
 - [ ] **TODO Anshuman**: **GDPR/FERPA Erasure Token**.
-  - API to verify that a student's data is *cryptographically wiped* from all logs and caches upon request.
+  - **Objective**: The "Right to be Forgotten".
+  - **Step 1**: When a student requests deletion, issue a `crypto_shred` command.
+  - **Step 2**: This command must locate their logs in: S3 (backups), Postgres (records), and Redis (cache).
+  - **Step 3**: Overwrite the data with `0x00` (zeros) before deleting, to ensure no magnetic residue remains (metaphorically speaking for cloud/SSDs).
+  - **Step 4**: Return a cryptographically signed "Certificate of Deletion".
+
 
 
 ---
