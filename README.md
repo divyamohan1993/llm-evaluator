@@ -87,8 +87,17 @@ To start the monitor:
 ```
 3.  Keep this window open. It will automatically detect changes, commit them with meaningful messages, and push to your branch.
 
-## 🚀 Quick Start for others
 
+## 🚀 Quick Start for Others
+
+**The Easiest Way:**
+Just run the all-in-one launcher. It handles Git updates, dependencies, and server startup.
+
+```batch
+.\run_everything.bat
+```
+
+**Manual Way:**
 ```bash
 # Clone the repository
 git clone https://github.com/divyamohan1993/llm-evaluator.git
