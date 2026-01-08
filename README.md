@@ -87,11 +87,11 @@ To start the monitor:
 ```
 3.  Keep this window open. It will automatically detect changes, commit them with meaningful messages, and push to your branch.
 
-## 🚀 Quick Start
+## 🚀 Quick Start for others
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/llm-evaluator.git
+git clone https://github.com/divyamohan1993/llm-evaluator.git
 cd llm-evaluator
 
 # Create virtual environment
