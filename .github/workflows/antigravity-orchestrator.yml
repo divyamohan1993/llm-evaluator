@@ -1,9 +1,9 @@
 # =============================================================================
-# SmartEvaluator-Omni - Antigravity Orchestrator CI/CD
+# SmartEvaluator-Omni - Branch Merge Orchestrator CI/CD
 # Multi-Agent Swarm Testing & Auto-Merge Pipeline
 # =============================================================================
 
-name: Antigravity Orchestrator
+name: Branch Merge Orchestrator
 
 on:
   workflow_dispatch:  # Allow manual trigger
@@ -116,7 +116,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          echo "🔀 Merging $BRANCH_NAME to main..."
+          echo "Merging $BRANCH_NAME to main..."
           
           git fetch origin main
           git checkout main
@@ -127,7 +127,7 @@ jobs:
   # Sync main changes to all feature branches
   # ===========================================================================
   sync-branches:
-    name: 🔄 Auto-Sync Main → All Features
+    name: Auto-Sync Main → All Features
     runs-on: ubuntu-latest
     needs: [test, lint]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -147,24 +147,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "🔄 Syncing main to all feature branches..."
+          echo "Syncing main to all feature branches..."
           
           # Get all remote feature branches
           BRANCHES=$(git branch -r | grep 'origin/feat/' | sed 's|origin/||' | xargs)
           
           for BRANCH in $BRANCHES; do
-            echo "📦 Syncing $BRANCH with main..."
+            echo "Syncing $BRANCH with main..."
             
             git checkout $BRANCH 2>/dev/null || git checkout -b $BRANCH origin/$BRANCH
             
             # Try to merge main, skip if conflicts
             if git merge origin/main --no-edit -m "Auto-sync: main → $BRANCH"; then
               git push origin $BRANCH
-              echo "✅ $BRANCH synced successfully"
+              echo "$BRANCH synced successfully"
             else
-              echo "⚠️ $BRANCH has conflicts, skipping..."
+              echo "$BRANCH has conflicts, skipping..."
               git merge --abort
             fi
           done
           
-          echo "🎉 Sync complete!"
+          echo "Sync complete!"
