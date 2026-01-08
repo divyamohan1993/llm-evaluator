@@ -56,102 +56,58 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 
 ## MASSIVE TODO LIST
 
-### Phase 1: Core Orchestration (Week 1-2)
 
-- [ ] **TODO Kaustuv**: Implement proper `asyncio.gather()` with timeout handling
-  - Current implementation lacks timeout for slow agents
-  - Add `asyncio.wait_for()` with configurable timeout (default: 30s)
-  - Handle `asyncio.TimeoutError` gracefully
-  
-- [ ] **TODO Kaustuv**: Add retry logic with exponential backoff
-  - Implement `@retry` decorator for agent calls
-  - Configure max_retries=3, base_delay=1s, max_delay=30s
-  - Log all retry attempts
+### ⚡ AGENTIC ACCELERATION ENABLED
+**Timeline Compressed via Antigravity, Jules, & Claude Code.**
+**Target:** Enterprise Grade | **Speed:** Extreme
 
-- [ ] **TODO Kaustuv**: Implement circuit breaker pattern
-  - Integrate with `backend/infra/router.py` circuit breakers
-  - Track failure rates per agent
-  - Auto-disable failing agents after threshold
+### Day 1: The Core & The Guardrails
+- [ ] **TODO Kaustuv (Agent: Antigravity)**: Implement `asyncio` Swarm with **Adversarial Defense**.
+  - Timeout handling (strict 500ms SLA).
+  - **Prompt Injection Firewall**: Sanitize student inputs before they hit the Swarm.
+  - **Circuit Breaker**: Auto-divert to fallback models on hallucination detection.
 
-### Phase 2: Agent Implementations (Week 3-4)
+- [ ] **TODO Kaustuv (Agent: Claude Code)**: Deploy FactChecker w/ **Live Web Verification**.
+  - Connect Gemini to live Google Search for real-time fact validation (not just static knowledge).
+  - **Citation Verification**: strict check against provided academic sources.
 
-- [ ] **TODO Kaustuv**: Complete FactCheckerAgent (Gemini)
-  - Implement actual Google Gemini API integration
-  - Add PDF chunking for long documents (max 32k tokens)
-  - Implement semantic similarity scoring for partial fact matches
-  - Add citation extraction and verification
+### Day 2: Advanced Cognitive Architectures
+- [ ] **TODO Kaustuv (Agent: Jules)**: StructureAgent with **Psychometric Analysis**.
+  - Don't just check grammar; analyze logical flow and cognitive coherence.
+  - **Vocabulary Fingerprinting**: Detect authorship style changes (anti-ghostwriting).
 
-- [ ] **TODO Kaustuv**: Complete StructureAgent (Llama 3)
-  - Integrate with Ollama API for local inference
-  - Implement grammar scoring rubric (0-100 scale)
-  - Add paragraph structure analysis
-  - Implement vocabulary complexity scoring
+- [ ] **TODO Kaustuv (Agent: Codex)**: CriticalAgent with **Logical Fallacy Detection**.
+  - Identify ad hominem, straw man, and circular reasoning in student arguments.
+  - **Bluff Detection v2.0**: Cross-reference claims against multiple knowledge bases to detect subtle fabrications.
 
-- [ ] **TODO Kaustuv**: Complete CriticalAgent (Claude)
-  - Implement Claude 3.5 API integration
-  - Add bluff detection heuristics
-  - Implement hallucination detection patterns
-  - Add confidence calibration
+### Day 3: Security & Forensics
+- [ ] **TODO Kaustuv (Agent: Antigravity)**: SecurityAgent with **Stylometric Forensics**.
+  - **Review**: `backend/swarm/security_agent.py`
+  - Implement **Burstiness & Perplexity** analysis at a forensic level.
+  - **Ghostwriter Detection**: Compare submission against student's baseline writing style history.
 
-- [ ] **TODO Kaustuv**: Complete SecurityAgent (BERT)
-  - Implement BERT-based AI detection model
-  - Add perplexity and burstiness metrics
-  - Integrate plagiarism database lookups
-  - Implement text fingerprinting
+- [ ] **TODO Kaustuv**: **Immutable Audit Logging**.
+  - Every agent vote must be cryptographically signed.
+  - Store logs in a tamper-evident format for grade disputes.
 
-### Phase 3: Response Parsing (Week 5)
+### Day 4: High-Scale Industrialization
+- [ ] **TODO Kaustuv**: Response Parsing with **Self-Healing Schema**.
+  - If JSON is malformed, use a micro-LLM to repair it on the fly.
+  - Normalize scores to standard deviation curves automatically.
 
-- [ ] **TODO Kaustuv**: Implement robust JSON parsing
-  - Add regex fallback for malformed JSON
-  - Implement schema validation with Pydantic
-  - Handle partial responses gracefully
-  - Add response normalization (0-100 scale)
+- [ ] **TODO Kaustuv**: **Global Caching Layer**.
+  - Semantic Caching (Redis/Valkey) for identical argument structures, not just identical text.
+  - **Pre-computation**: Predict likely student answers for common questions and pre-warm the cache.
 
-- [ ] **TODO Kaustuv**: Implement response caching
-  - Add LRU cache for identical prompts
-  - Implement cache invalidation strategy
-  - Add cache hit/miss metrics
+### Day 5: Chaos Engineering & Stress Testing
+- [ ] **TODO Kaustuv**: **Chaos Monkey Integration**.
+  - Randomly kill 2 out of 4 agents during live grading to test consensus resilience.
+  - **Load Test**: Simulate 100,000 concurrent exams using `locust`.
 
-### Phase 4: Monitoring & Logging (Week 6)
+- [ ] **TODO Kaustuv**: **Latency Optimization**.
+  - Implement Request Batching (Group 50 answers -> 1 API call).
+  - **Streaming Consensus**: Show realtime grading confidence intervals as the student types (optional).
 
-- [ ] **TODO Kaustuv**: Add comprehensive logging
-  - Log all agent requests and responses
-  - Add latency tracking per agent
-  - Implement structured logging (JSON format)
-  - Add request correlation IDs
-
-- [ ] **TODO Kaustuv**: Add Prometheus metrics
-  - Agent success/failure rates
-  - Response latency histograms
-  - Token usage tracking
-  - Queue depth monitoring
-
-### Phase 5: Testing (Week 7-8)
-
-- [ ] **TODO Kaustuv**: Expand MockSwarmCouncil
-  - Add configurable mock responses for different test scenarios
-  - Implement failure injection for testing
-  - Add latency simulation
-  - Create test fixtures for common scenarios
-
-- [ ] **TODO Kaustuv**: Add integration tests
-  - Test actual API calls (marked as slow tests)
-  - Test parallel execution timing
-  - Test circuit breaker behavior
-  - Test failover scenarios
-
-### Phase 6: Performance Optimization (Week 9-10)
-
-- [ ] **TODO Kaustuv**: Optimize parallel execution
-  - Benchmark current implementation
-  - Identify bottlenecks
-  - Implement connection pooling
-  - Add request batching for efficiency
-
-- [ ] **TODO Kaustuv**: Implement streaming responses
-  - Add SSE support for real-time updates
-  - Implement partial result streaming
-  - Add progress callbacks
 
 ---
 

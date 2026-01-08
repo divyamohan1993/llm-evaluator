@@ -62,129 +62,56 @@ The **Digital Twin Engine** creates a virtual replica of each teacher's grading 
 
 ## MASSIVE TODO LIST
 
-### Phase 1: ChromaDB Integration (Week 1-2)
 
-- [ ] **TODO Jatin**: Set up ChromaDB collection for teacher personas
-  - Create `teacher_personas` collection
-  - Define embedding model (sentence-transformers)
-  - Implement persistence to disk
-  - Add connection pooling
+### ⚡ AGENTIC ACCELERATION ENABLED
+**Timeline Compressed via Antigravity, Jules, & OpenAI O1.**
+**Target:** Enterprise Grade | **Speed:** Extreme
 
-- [ ] **TODO Jatin**: Implement teacher persona ingestion
-  - Create admin API to add new teachers
-  - Parse teacher profile documents
-  - Extract personality traits automatically
-  - Generate style vectors from feedback history
+### Day 1: The Soul of the Machine
+- [ ] **TODO Jatin (Agent: Antigravity)**: **Psychometric Profiling Pipeline**.
+  - Don't just act like the teacher; *become* the teacher.
+  - Implement **Big Five Personality Analysis** on teacher's past emails/feedback to derive the 'Openness' and 'Conscientiousness' scalars.
+  - **Vector Storage**: Use optimized HNSW in ChromaDB for <10ms retrieval.
 
-- [ ] **TODO Jatin**: Implement vector similarity search
-  - Query similar teachers for new teacher onboarding
-  - Find past feedback for similar answers
-  - Implement semantic search for pet peeves
+- [ ] **TODO Jatin (Agent: O1)**: **Bias Mitigation Engine**.
+  - **Critical Enterprise Requirement**: Automatically detect if a teacher's persona is unbiased.
+  - Implement counter-factual testing: Grade the same answer with swapped gender pronouns to ensure score stability.
 
-### Phase 2: Personality Loader (Week 3-4)
+### Day 2: Advanced mimicry
+- [ ] **TODO Jatin (Agent: Jules)**: **Pet Peeve Amplifier**.
+  - Extract negative sentiments from past feedback with 99% precision.
+  - If teacher hates "passive voice", the system must not just deduct points but WRITE a comment using the teacher's specific angry idiom.
 
-- [ ] **TODO Jatin**: Retrieve the teacher's 'Pet Peeves'
-  - Parse pet peeves from teacher profiles
-  - Examples: "hates passive voice", "loves citations"
-  - Inject pet peeves into system prompt
-  - Weight violations in scoring
+- [ ] **TODO Jatin (Agent: Claude Code)**: **Few-Shot Hyper-Personalization**.
+  - Retrieve top-3 papers where the teacher gave an 'A' and top-3 where they gave an 'F'.
+  - Use these as dynamic anchors for the current grading session.
+  - **Style Transfer**: Use LoRA filters to enforce the exact tone (Sarcastic, Nurturing, Dry).
 
-- [ ] **TODO Jatin**: Implement Few-Shot prompting
-  - Retrieve 5 most relevant past feedback examples
-  - Use semantic similarity to match answer types
-  - Format examples for LLM consumption
-  - Track which examples improve accuracy
+### Day 3: The Decision Matrix
+- [ ] **TODO Jatin**: **Chain of Verification (CoV)**.
+  - Before finalizing a grade, the Digital Twin must "debate" itself.
+  - "I want to give this a B+, but did I miss the lack of citations?" -> **Self-Correction Loop**.
 
-- [ ] **TODO Jatin**: Build teacher style vector
-  - Encode grading preferences as 128-dim vector
-  - Store in ChromaDB for retrieval
-  - Implement style interpolation for new teachers
-  - Add style drift detection
+- [ ] **TODO Jatin**: **Veto Power with Legal Audit**.
+  - If the Digital Twin overrides the Swarm (e.g., "This answer is correct but sloppy"), log the *exact* reasoning for potential grade appeals.
+  - **Explainability API**: Generate a "Why did I grade this way?" PDF for every student.
 
-- [ ] **TODO Jatin**: Implement caching layer
-  - Cache persona lookups (TTL: 1 hour)
-  - Invalidate on teacher profile update
-  - Add cache warming on startup
+### Day 4: Enterprise Scale & Privacy
+- [ ] **TODO Jatin**: **Federated Learning Support**.
+  - Allow models to update on teacher behavior without sending raw student data to the cloud.
+  - Implement Differential Privacy noise injection.
 
-### Phase 3: Decision Maker (Week 5-6)
+- [ ] **TODO Jatin**: **Multi-Tenant Teacher Isolation**.
+  - Strict logical separation of vector collections. A Physics teacher's bias must NEVER bleed into a History teacher's clone.
 
-- [ ] **TODO Jatin**: Apply teacher personality weights
-  - Map teacher preferences to agent weights
-  - Example: "fact-focused" = fact_agent: 0.5
-  - Implement dynamic weight adjustment
-  - Log weight distributions for analysis
+### Day 5: Validation & Deployment
+- [ ] **TODO Jatin**: **Turing Test for Grades**.
+  - Show 50 real teacher grades and 50 AI grades to the teacher.
+  - Acceptance Criteria: Teacher cannot distinguish >60% of them.
 
-- [ ] **TODO Jatin**: Implement veto handling
-  - Check security agent for plagiarism flag
-  - Override final score to 0 if flagged
-  - Generate appropriate feedback message
-  - Log veto events for review
+- [ ] **TODO Jatin**: **Feedback Loop Automation**.
+  - If a teacher edits an AI grade, immediately re-embed that diff and update the vector store. Real-time learning.
 
-- [ ] **TODO Jatin**: Generate teacher-style feedback
-  - Use LLM to rewrite feedback in teacher's voice
-  - Apply tone preferences (harsh, encouraging, neutral)
-  - Inject pet peeves into feedback
-  - Personalize with teacher's common phrases
-
-- [ ] **TODO Jatin**: Implement grade calibration
-  - Adjust scores based on teacher's historical average
-  - Detect and correct grade inflation/deflation
-  - Maintain consistent grading standards
-
-### Phase 4: Admin Dashboard (Week 7-8)
-
-- [ ] **TODO Jatin**: Create teacher profile management API
-  - CRUD operations for teacher profiles
-  - Bulk import from CSV/Excel
-  - Profile validation and sanitization
-  - Version history for profiles
-
-- [ ] **TODO Jatin**: Build feedback learning loop
-  - Collect teacher corrections to AI grades
-  - Use corrections to refine personality model
-  - Implement active learning strategy
-  - Track improvement metrics
-
-- [ ] **TODO Jatin**: Add teacher analytics
-  - Grading distribution charts
-  - Pet peeve trigger frequency
-  - Style consistency score
-  - Student satisfaction correlation
-
-### Phase 5: Advanced Features (Week 9-10)
-
-- [ ] **TODO Jatin**: Implement multi-teacher consensus
-  - Support courses with multiple TAs
-  - Blend multiple teacher personas
-  - Handle conflicting preferences
-  - Generate unified feedback
-
-- [ ] **TODO Jatin**: Add subject-specific adaptations
-  - Different rubrics for STEM vs Humanities
-  - Subject-specific vocabulary requirements
-  - Citation style enforcement (APA, MLA, Chicago)
-
-- [ ] **TODO Jatin**: Implement personality transfer
-  - Allow teachers to "fork" other teacher's styles
-  - Suggest personality improvements
-  - A/B test different personality settings
-
-### Phase 6: Testing & Validation (Week 11-12)
-
-- [ ] **TODO Jatin**: Create teacher persona test fixtures
-  - 10 diverse teacher personas for testing
-  - Cover different subjects and styles
-  - Include edge cases (very strict, very lenient)
-
-- [ ] **TODO Jatin**: Add personality accuracy tests
-  - Compare generated feedback to actual teacher feedback
-  - Measure style similarity score
-  - Track regression in personality matching
-
-- [ ] **TODO Jatin**: Implement human evaluation pipeline
-  - Collect teacher ratings of generated feedback
-  - Build annotation interface
-  - Calculate inter-rater reliability
 
 ---
 

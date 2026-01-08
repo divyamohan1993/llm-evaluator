@@ -64,144 +64,42 @@ The **Consensus Configuration** defines the mathematical weighting logic that de
 
 ## MASSIVE TODO LIST
 
-### Phase 1: Consensus Matrix Enhancement (Week 1-2)
 
-- [ ] **TODO Anshul**: Define the threshold for 'Veto'
-  - If Security Agent flags plagiarism (score < 30), score = 0
-  - If Security Agent flags AI-generated (score < 40), flag for review
-  - Document veto rules clearly in config
-  - Test veto edge cases
+### ⚡ AGENTIC ACCELERATION ENABLED
+**Timeline Compressed via Antigravity, Jules, & OpenAI Codex.**
+**Target:** Enterprise Grade | **Speed:** Extreme
 
-- [ ] **TODO Anshul**: Add more grading modes
-  - `essay_mode`: Higher weight on structure and critical thinking
-  - `technical_mode`: Higher weight on facts and accuracy
-  - `research_mode`: Additional weight on citations
-  - `creative_mode`: Lower penalty for unconventional answers
+### Day 1: Advanced Mathematics
+- [ ] **TODO Anshul (Agent: Antigravity)**: **Game Theoretic Consensus**.
+  - Move beyond weighted averages. Implement **Nash Equilibrium** scoring.
+  - If 3 agents say 'A' and 1 fails, heavily penalize the outlier ONLY if confidence is low.
+  - **Bayesian Updating**: Update agent reliability scores in real-time based on their agreement with the consensus.
 
-- [ ] **TODO Anshul**: Implement adaptive weighting
-  - Adjust weights based on question type
-  - Support per-question weight overrides
-  - Learn optimal weights from teacher feedback
-  - A/B testing for weight configurations
+- [ ] **TODO Anshul (Agent: Jules)**: **Dynamic Rubric Generation**.
+  - Don't use static weights. Generate a custom rubric vector *per question* based on semantic complexity.
 
-- [ ] **TODO Anshul**: Add weight validation
-  - Ensure weights sum to 1.0
-  - Validate all required agents are present
-  - Schema validation on load
-  - Helpful error messages
+### Day 2: The Veto Engine
+- [ ] **TODO Anshul**: **Hierarchical Veto Logic**.
+  - "Plagiarism" (Security Agent) > "Fact Error" (Fact Agent) > "Grammar" (Structure Agent).
+  - Implement **Override Codes**: Dean of Students can sign a cryptographically secured override key to bypass a veto.
 
-### Phase 2: Veto Rules Engine (Week 3-4)
+### Day 3: Trust & Verification (Blockchain)
+- [ ] **TODO Anshul (Agent: Codex)**: **On-Chain Grade Verification**.
+  - Hash every final grade + agent metadata (SHA-256).
+  - Publish the Merkle Root of the exam batch to a public ledger (e.g., Polygon/Ethereum).
+  - **Zero-Knowledge Proofs**: Prove a student passed without revealing their score.
 
-- [ ] **TODO Anshul**: Implement veto rules engine
-  - Create `veto_rules.py` module
-  - Support multiple veto conditions
-  - Allow priority ordering of rules
-  - Support partial vetoes (score reduction)
+### Day 4: Adaptive Intelligence
+- [ ] **TODO Anshul**: **Calibration Loop**.
+  - If the class average is 40% (too hard) or 95% (too easy), automatically suggest a curve adjustment to the professor *before* publishing grades.
+  - **A/B Testing**: Serve "Strict Mode" to 50% of anon submissions and "Lenient Mode" to 50% to measure impact (in dev only).
 
-- [ ] **TODO Anshul**: Add configurable veto actions
-  - `zero_score`: Set final score to 0
-  - `flag_review`: Mark for human review
-  - `reduce_score`: Apply percentage reduction
-  - `notify_instructor`: Send alert
+### Day 5: Enterprise Analytics
+- [ ] **TODO Anshul**: **Bias Detection Dashboard**.
+  - "Are we grading non-native English speakers harder?"
+  - Visualize correlation between "Vocabulary Complexity" and "Final Score".
+  - **Regulatory Reports**: Auto-generate PDFs for Accreditation Boards (ABET/WASC).
 
-- [ ] **TODO Anshul**: Implement veto override
-  - Allow teachers to override veto decisions
-  - Log override reasons
-  - Track override frequency
-  - Improve rules based on overrides
-
-- [ ] **TODO Anshul**: Add veto explanation generation
-  - Generate human-readable veto reason
-  - Include evidence from agents
-  - Suggest remediation steps
-  - Support multiple languages
-
-### Phase 3: Scoring Algorithms (Week 5-6)
-
-- [ ] **TODO Anshul**: Implement alternative consensus methods
-  - Weighted average (current)
-  - Median voting
-  - Majority voting
-  - Ranked choice voting
-  - Minimum of all agents
-
-- [ ] **TODO Anshul**: Add confidence-weighted scoring
-  - Weight votes by agent confidence
-  - Penalize low-confidence high scores
-  - Normalize confidence across agents
-  - Track confidence calibration
-
-- [ ] **TODO Anshul**: Implement score normalization
-  - Normalize to 0-100 scale
-  - Handle outlier scores
-  - Apply grade curve if configured
-  - Support different grading scales (A-F, 1-10, Pass/Fail)
-
-- [ ] **TODO Anshul**: Add bonus/penalty system
-  - Unanimous agreement bonus (+5 points)
-  - High disagreement penalty (-3 points)
-  - Early submission bonus
-  - Late submission penalty
-
-### Phase 4: Grade Calibration (Week 7-8)
-
-- [ ] **TODO Anshul**: Implement grade distribution analysis
-  - Track grade distribution per class
-  - Detect grade inflation/deflation
-  - Alert on abnormal distributions
-  - Suggest calibration adjustments
-
-- [ ] **TODO Anshul**: Add historical comparison
-  - Compare current grades to historical
-  - Detect significant changes
-  - Provide trend analysis
-  - Generate reports
-
-- [ ] **TODO Anshul**: Implement cross-validation
-  - Compare AI grades to human grades
-  - Measure correlation coefficient
-  - Identify systematic biases
-  - Improve consensus weights
-
-### Phase 5: Configuration Management (Week 9-10)
-
-- [ ] **TODO Anshul**: Create configuration API
-  - CRUD operations for configurations
-  - Version control for configs
-  - Rollback capability
-  - Configuration comparison
-
-- [ ] **TODO Anshul**: Add configuration templates
-  - Pre-built templates for common scenarios
-  - Subject-specific templates
-  - Import/export functionality
-  - Template marketplace
-
-- [ ] **TODO Anshul**: Implement A/B testing
-  - Test different weight configurations
-  - Measure impact on grades
-  - Statistical significance testing
-  - Auto-promote winning configs
-
-### Phase 6: Analytics & Reporting (Week 11-12)
-
-- [ ] **TODO Anshul**: Build consensus analytics
-  - Agent agreement rate
-  - Veto frequency
-  - Weight effectiveness
-  - Mode usage statistics
-
-- [ ] **TODO Anshul**: Create visualization dashboard
-  - Real-time consensus flow
-  - Agent contribution charts
-  - Grade distribution histograms
-  - Trend analysis graphs
-
-- [ ] **TODO Anshul**: Generate compliance reports
-  - Grading consistency metrics
-  - Bias detection reports
-  - Audit trail
-  - Regulatory compliance
 
 ---
 
