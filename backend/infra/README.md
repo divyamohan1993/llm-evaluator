@@ -66,71 +66,165 @@ The **Hybrid Infrastructure** layer manages routing between Cloud APIs (Gemini, 
 
 
 
+
 ### ⚡ AGENTIC ACCELERATION ENABLED
 **Timeline Compressed via Antigravity, Jules, & Amazon Q.**
 **Target:** Enterprise Grade | **Speed:** Extreme
 
-### Day 1: The Iron Defense (Zero Trust)
-- [ ] **TODO Anshuman (Agent: Antigravity)**: **Implement mTLS everywhere**.
-  - **Objective**: "Zero Trust" means "Trust no one, not even inside our own network."
-  - **Step 1**: Use `OpenSSL` to generate a root Certificate Authority (CA).
-  - **Step 2**: Issue client certificates for the `Backend`, `Ollama`, and `Redis` containers.
-  - **Step 3**: Configure `Nginx` (or Traefik) to REJECT any connection that does not present a valid client certificate signed by our CA.
-  - **Step 4 (Audit)**: Integrate `HashiCorp Vault`. Write a script that automatically revokes and re-issues these keys every 60 minutes.
+### 🔰 PRE-REQUISITES (Do this first!)
+- [ ] **Install Tools**: Docker Desktop, Kubernetes (Minikube usually), Helm, Vault.
+- [ ] **Install Python Libs**:
+  ```bash
+  pip install opentelemetry-api opentelemetry-sdk opentelemetry-instrumentation-fastapi chaos-mesh prometheus_client boto3
+  ```
 
-- [ ] **TODO Anshuman (Agent: Jules)**: **Circuit Breaker v2.0 (Predictive)**.
-  - **Objective**: Don't just react to failure; predict it.
-  - **Step 1**: Track the "Moving Average" of latency for the last 10 requests.
-  - **Step 2**: If average latency climbs from 200ms -> 400ms -> 600ms, do NOT wait for a timeout. 
-  - **Step 3**: Immediately trip the breaker and switch to the Failover model (e.g., from Gemini to Claude). 
-  - **Step 4 (Jitter)**: When retrying, wait `random.uniform(0.5, 1.5)` seconds. This prevents "Thundering Herd" (everyone retrying at the exact same millisecond).
+---
+
+### Day 1: The Iron Defense (Zero Trust) (Micro-Steps)
+
+#### 1.1 mTLS Implementation (Agent: Antigravity)
+- [ ] **Certificate Authority (CA)**:
+  - **Action**: Run `openssl req -x509 -newkey rsa:4096 -keyout ca-key.pem -out ca-cert.pem -days 365`.
+  - **Why?**: You are now your own Verisign.
+- [ ] **Client Certs**:
+  - **Action**: Create a distinct cert for your Backend Service: `backend-cert.pem`.
+  - **Action**: Create a distinct cert for your Database Service: `db-cert.pem`.
+- [ ] **Nginx Config**:
+  - File: `nginx/conf.d/mtls.conf`.
+  - **Code**:
+    ```nginx
+    server {
+        listen 443 ssl;
+        ssl_client_certificate /etc/nginx/certs/ca-cert.pem;
+        ssl_verify_client on; # REJECT anyone without a cert
+    }
+    ```
+
+#### 1.2 Predictive Circuit Breaker
+- [ ] **Latency Tracker**:
+  - File: `backend/infra/circuit.py`.
+  - **Step**: Using `deque` from collections, store last 10 response times. `history.append(time_taken)`.
+  - **Step**: `avg_latency = sum(history) / len(history)`.
+- [ ] **Pre-emptive Strike**:
+  - **Code**:
+    ```python
+    if avg_latency > 0.5: # 500ms
+        print("Warning! Latency spiking. Switching to Failover Model...")
+        current_model = "claude-haiku" # Smaller, faster model
+    ```
+
+---
 
 ### Day 2: Multi-Cloud Sovereignty
-- [ ] **TODO Anshuman**: **Provider Agnostic Router**.
-  - **Objective**: We must never go down, even if AWS goes down.
-  - **Step 1**: Create an abstraction layer `LLMInterface`.
-  - **Step 2**: Implement adapters for `AzureOpenAI`, `AWSBedrock`, and `GoogleVertex`.
-  - **Step 3**: If `azure_client.chat()` raises a 500 error, the router must instantly call `aws_client.chat()` with the exact same prompt.
-  - **Step 4 (Sovereign Mode)**: Add a config flag `GOVERNMENT_MODE=True`. If set, the router MUST physically block all calls to public clouds and only route to `http://localhost:11434` (Ollama).
+
+#### 2.1 Provider Agnostic Router
+- [ ] **Adapter Pattern**:
+  - File: `backend/infra/llm_router.py`.
+  - **Step**: Define `class LLMProvider(Protocol): def chat(self, msg): ...`
+  - **Step**: Implement `OpenAIAdapter`, `ClaudeAdapter`, `OllamaAdapter`.
+- [ ] **Failover Logic**:
+  - **Code**:
+    ```python
+    providers = [OpenAIAdapter(), ClaudeAdapter()]
+    for p in providers:
+        try:
+            return await p.chat(prompt)
+        except Exception:
+            continue # Try next provider
+    raise SystemError("All Clouds Down")
+    ```
+- [ ] **Sovereign Mode**:
+  - **Video**: Watch "How to Airgap Ollama".
+  - **Config**: In `.env`, set `AIRGAP_MODE=True`.
+  - **Code**: `if config.AIRGAP_MODE and provider.is_cloud: raise SecurityError()`.
+
+---
 
 ### Day 3: Cost & Observability
-- [ ] **TODO Anshuman (Agent: Amazon Q)**: **Real-time Cost Arbitrage**.
-  - **Objective**: Save money automatically.
-  - **Step 1**: Define a complexity score function `estimate_complexity(prompt)`.
-  - **Step 2**: If length < 50 chars ("What is 2+2?"), route to `Llama-3-8b` (Free).
-  - **Step 3**: If length > 2000 chars (Essay grading), route to `GPT-4o` (Powerful).
-  - **Step 4 (Budget Enforcer)**: Store `current_spend` in Redis. If `current_spend > $50`, switch ALL traffic to Llama-3 automatically.
 
-- [ ] **TODO Anshuman**: **Distributed Tracing (OpenTelemetry)**.
-  - **Objective**: See where the time is going.
-  - **Step 1**: Install `opentelemetry-distro` and `opentelemetry-exporter-otlp`.
-  - **Step 2**: Instrument the FastAPI app: `FastAPIInstrumentor.instrument_app(app)`.
-  - **Step 3**: Visualize the waterfall chart in `Jaeger` or `Grafana`.
-  - **Step 4**: Set an alert: If "Token Usage" is high but "Grade Score" is 0 (failed response), trigger PagerDuty.
+#### 3.1 Cost Arbitrage (Agent: Amazon Q)
+- [ ] **Complexity Estimator**:
+  - **Logic**: Simple heuristic.
+  - **Code**:
+    ```python
+    def route(prompt):
+        if len(prompt) < 100: return "llama3:8b" # Free
+        if "analyze" in prompt: return "gpt-4o" # Smart but $
+        return "gpt-3.5-turbo" # Mid
+    ```
+- [ ] **Budget Kill Switch**:
+  - **Step**: Redis Key `daily_spend`.
+  - **Step**: Middleware increment: `redis.incrbyfloat("daily_spend", 0.03)`.
+  - **Step**: Check: `if redis.get("daily_spend") > 50.0: raise BudgetExceeded()`.
+
+#### 3.2 Distributed Tracing
+- [ ] **OpenTelemetry Setup**:
+  - **Step**: `docker run -d --name jaeger -p 16686:16686 jaegertracing/all-in-one`.
+  - **Step**: Python:
+    ```python
+    from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+    FastAPIInstrumentor.instrument_app(app)
+    ```
+  - **Verify**: Go to `http://localhost:16686`. You should see colorful bars for every request.
+
+---
 
 ### Day 4: Extreme Scale
-- [ ] **TODO Anshuman**: **Kubernetes Horizontal Pod Autoscaling (HPA)**.
-  - **Objective**: Handle 100,000 students clicking "Submit" at once.
-  - **Step 1**: Don't scale on CPU. CPU is a bad metric for async apps.
-  - **Step 2**: Scale on `custom_metric_queue_depth`.
-  - **Step 3**: Install KEDA (Kubernetes Event-driven Autoscaling).
-  - **Step 4**: Definition: `If queue_length > 100, spawn 10 new pods`.
-  - **Step 5 (GPU Slicing)**: Use **NVIDIA MIG (Multi-Instance GPU)** to split one A100 card into 7 smaller instances so we can run 7 copies of Llama-3 on one physical card.
+
+#### 4.1 Kubernetes HPA
+- [ ] **Minikube Setup**:
+  - **Step**: `minikube start --driver=docker`.
+- [ ] **Metric Server**:
+  - **Step**: `minikube addons enable metrics-server`.
+- [ ] **HPA Definition**:
+  - File: `k8s/hpa.yaml`.
+  - **Code**:
+    ```yaml
+    apiVersion: autoscaling/v2
+    kind: HorizontalPodAutoscaler
+    metadata:
+      name: backend-scaler
+    spec:
+      minReplicas: 1
+      maxReplicas: 10
+      metrics:
+      - type: Resource
+        resource:
+          name: cpu
+          target:
+            type: Utilization
+            averageUtilization: 50
+    ```
+  - **Deploy**: `kubectl apply -f k8s/hpa.yaml`.
+
+---
 
 ### Day 5: Compliance & Disaster Recovery
-- [ ] **TODO Anshuman**: **Chaos Mesh Drills**.
-  - **Objective**: Practice for the apocalypse.
-  - **Step 1**: Install `Chaos Mesh` on the cluster.
-  - **Step 2**: Scenario 1: "Network Partition". Cut the connection between the Backend and ChromaDB. Does the app show a nice error or crash?
-  - **Step 3**: Scenario 2: "Pod Kill". Kill the Redis leader. Does the app switch to the replica?
-  - **Goal**: RPO (Recovery Point Objective) = 0 data loss. RTO (Recovery Time Objective) < 5 seconds.
 
-- [ ] **TODO Anshuman**: **GDPR/FERPA Erasure Token**.
-  - **Objective**: The "Right to be Forgotten".
-  - **Step 1**: When a student requests deletion, issue a `crypto_shred` command.
-  - **Step 2**: This command must locate their logs in: S3 (backups), Postgres (records), and Redis (cache).
-  - **Step 3**: Overwrite the data with `0x00` (zeros) before deleting, to ensure no magnetic residue remains (metaphorically speaking for cloud/SSDs).
-  - **Step 4**: Return a cryptographically signed "Certificate of Deletion".
+#### 5.1 Chaos Mesh
+- [ ] **Installation**:
+  - **Step**: `curl -sSL https://mirrors.chaos-mesh.org/v2.6.2/install.sh | bash`.
+- [ ] **Experiment**:
+  - File: `chaos/pod-kill.yaml`.
+  - **Code**:
+    ```yaml
+    kind: PodChaos
+    spec:
+      action: pod-kill
+      selector:
+        namespaces: ["default"]
+        labelSelectors:
+          "app": "backend"
+      scheduler: "@every 1m"
+    ```
+  - **Result**: Watch your pods die every minute. Ensure your HPA brings them back.
+
+#### 5.2 GDPR Erasure
+- [ ] **Crypto-Shredding**:
+  - **Concept**: Instead of finding data in backups, we encrypt every student's data with a unique key.
+  - **Step**: `student_key = KMS.generate_key(student_id)`.
+  - **Step**: `encrypted_data = aes_encrypt(data, student_key)`.
+  - **Erasure**: To "delete" the data, we just delete the `student_key`. The data is now unintelligible garbage forever.
 
 
 

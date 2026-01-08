@@ -66,56 +66,141 @@ The **Consensus Configuration** defines the mathematical weighting logic that de
 
 
 
+
 ### ⚡ AGENTIC ACCELERATION ENABLED
 **Timeline Compressed via Antigravity, Jules, & OpenAI Codex.**
 **Target:** Enterprise Grade | **Speed:** Extreme
 
-### Day 1: Advanced Mathematics
-- [ ] **TODO Anshul (Agent: Antigravity)**: **Game Theoretic Consensus**.
-  - **Objective**: Use math to find the "Truth" when agents disagree.
-  - **Step 1**: Use `NumPy` to create a matrix of Agent Votes vs Confidence Scores.
-  - **Step 2 (Nash Equilibrium)**: If 3 agents agree on 85% and one says 20%, calculate the "Cost of Deviation". If the outlier has low confidence, discard it.
-  - **Step 3 (Bayesian Update)**: Keep a running "Trust Score" for each agent. If Agent C (Structure) is consistently overruled by the Human Teacher, lower its weight for next time `(weight * 0.9)`.
+### 🔰 PRE-REQUISITES (Do this first!)
+- [ ] **Install Python Libs**:
+  ```bash
+  pip install numpy scipy web3 eth-account reportlab pandas weasyprint statsmodels
+  ```
+- [ ] **Install Blockchain Tools**:
+  - `ganache-cli` (for local Ethereum blockchain).
+  - Metamask Chrome Extension (for testing).
 
-- [ ] **TODO Anshul (Agent: Jules)**: **Dynamic Rubric Generation**.
-  - **Objective**: Don't use the same ruler to measure a snake and a building.
-  - **Step 1**: When a question comes in, run a "Classifier Agent". Is this Math, History, or Creative Writing?
-  - **Step 2**: If Creative Writing, generate a Weight Vector: `{ "fact": 0.1, "creativity": 0.8 }`.
-  - **Step 3**: If History, generate: `{ "fact": 0.8, "creativity": 0.1 }`.
-  - **Step 4**: Apply this dynamic vector to the final score calculation instead of static config values.
+---
+
+### Day 1: Advanced Mathematics (Micro-Steps)
+
+#### 1.1 Nash Equilibrium Scorer (Agent: Antigravity)
+- [ ] **Matrix Implementation**:
+  - File: `config/scoring/game_theory.py`.
+  - **Step**: Create a Payoff Matrix.
+    ```python
+    import numpy as np
+    # Rows = Agent A decisions, Cols = Agent B decisions
+    payoff_matrix = np.array([[5, 0], [0, 5]]) # Coordination Game
+    ```
+  - **Step**: If Agent A and B agree, both get +5 "Confidence Points".
+  - **Step**: If they disagree, both get 0.
+- [ ] **Bayesian Updater**:
+  - **Step**: Store `agent_trust_scores = {"gemini": 0.9, "claude": 0.9}`.
+  - **Step**: After every exam, if `human_override` exists:
+    `new_trust = old_trust * 0.9` (Penalize the AI).
+
+#### 1.2 Dynamic Rubric Generator
+- [ ] **Intention Classifier**:
+  - **Step**: Use a zero-shot classifier (like Bart-Large-MNLI).
+  - **Code**:
+    ```python
+    labels = ["creative", "factual", "analytical"]
+    result = classifier(student_answer, labels)
+    mode = result['labels'][0]
+    ```
+- [ ] **Weight Swapping**:
+  - **Logic**:
+    ```python
+    if mode == "creative":
+        weights = {"fact": 0.1, "style": 0.9}
+    elif mode == "factual":
+        weights = {"fact": 0.9, "style": 0.1}
+    ```
+
+---
 
 ### Day 2: The Veto Engine
-- [ ] **TODO Anshul**: **Hierarchical Veto Logic**.
-  - **Objective**: Some rules are absolute.
-  - **Step 1**: Define a Priority Queue of rules.
-  - **Step 2**: If `SecurityAgent` returns `plagiarism_detected=True`, this is Priority 0 (Highest). Immediately set `final_score = 0`.
-  - **Step 3**: If `FactAgent` returns `wrong_date`, this is Priority 2. Deduct 5 points.
-  - **Step 4 (Override Keys)**: Create a cryptographic key generator. The Dean can sign a `JWT` (JSON Web Token) that, when passed in the header, disables the Veto engine for a specific student appeal.
+
+#### 2.1 Hierarchical Logic
+- [ ] **Priority Queue**:
+  - File: `config/veto.py`.
+  - **Step**: Define constants. `PRIORITY_SECURITY = 0`, `PRIORITY_FACT = 1`.
+  - **Step**: `vetoes = []`.
+  - **Step**: `if plagiarism: vetoes.append((PRIORITY_SECURITY, "Plagiarism Detected"))`.
+  - **Step**: `vetoes.sort(key=lambda x: x[0])`.
+  - **Step**: Return `vetoes[0]` (The most critical issue).
+
+#### 2.2 Override Keys (The "Dean's Key")
+- [ ] **JWT Implementation**:
+  - **Step**: `import jwt`.
+  - **Step**: `secret = "university_super_secret_key"`.
+  - **Step**: To generate a key:
+    ```python
+    token = jwt.encode({"role": "dean", "override": True}, secret, algorithm="HS256")
+    ```
+  - **Step**: To check a key:
+    ```python
+    decoded = jwt.decode(token, secret, algorithms=["HS256"])
+    if decoded['override']: bypass_veto()
+    ```
+
+---
 
 ### Day 3: Trust & Verification (Blockchain)
-- [ ] **TODO Anshul (Agent: Codex)**: **On-Chain Grade Verification**.
-  - **Objective**: Make grades un-hackable.
-  - **Step 1**: Calculate `SHA-256` hash of `Student ID + Grade + Timestamp`.
-  - **Step 2**: Use `Web3.py` to connect to a public testnet (like Polygon Mumbai or Sepolia).
-  - **Step 3**: Publish this hash to a Smart Contract function `publishGradeHash(bytes32 _hash)`.
-  - **Step 4**: Give the student a transaction receipt. "Here is proof your grade was 92 on Jan 8th. No one can change it in the DB later."
-  - **Step 5 (Privacy)**: Use "Zero-Knowledge Proofs" (Circom/SnarkJS) so a student can prove "I got > 70%" to an employer without revealing they got exactly 71%.
+
+#### 3.1 On-Chain Verification
+- [ ] **Hashing**:
+  - **Step**: `data = f"{student_id}:{grade}:{timestamp}"`.
+  - **Step**: `data_hash = getattr(hashlib, 'sha256')(data.encode()).hexdigest()`.
+- [ ] **Smart Contract**:
+  - File: `contracts/GradeNotary.sol`.
+  - **Code**:
+    ```solidity
+    mapping(bytes32 => bool) public validVarifiedGrades;
+    function publishGrade(bytes32 _hash) public onlyOwner {
+        validVarifiedGrades[_hash] = true;
+    }
+    ```
+- [ ] **Web3.py Interaction**:
+  - **Step**: Connect to Ganache: `w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))`.
+  - **Step**: Call contract: `contract.functions.publishGrade(data_hash).transact()`.
+
+---
 
 ### Day 4: Adaptive Intelligence
-- [ ] **TODO Anshul**: **Calibration Loop**.
-  - **Objective**: Fairness across different exam difficulties.
-  - **Step 1**: Calculate the Class Mean and Standard Deviation using `scipy.stats`.
-  - **Step 2**: If Mean < 40% (Exam was too hard), finding the Z-Score.
-  - **Step 3**: Automatically apply a "Square Root Curve" `(NewScore = Sqrt(OldScore) * 10)` or a Linear Shift to bring Mean to 75%.
-  - **Step 4**: Present this "Suggested Curve" to the professor for one-click approval.
+
+#### 4.1 Calibration Loop
+- [ ] **Statistical Analysis**:
+  - **Library**: `scipy.stats`.
+  - **Step**: `z_scores = stats.zscore(all_class_grades)`.
+  - **Step**: Identify outliers (> 3 std dev).
+- [ ] **Auto-Curving**:
+  - **Logic**: If `mean < 60`:
+  - **Code**: `curved_grades = [min(100, g + (75 - mean)) for g in raw_grades]`.
+  - **Why?**: Shifts the distribution center to 75%.
+
+#### 4.2 A/B Testing Infrastructure
+- [ ] **Experiment Router**:
+  - **Step**: `if hash(student_id) % 2 == 0: use_strict_model() else: use_lenient_model()`.
+  - **Step**: Log: `logger.info(f"Student {sid} assigned to Group A")`.
+
+---
 
 ### Day 5: Enterprise Analytics
-- [ ] **TODO Anshul**: **Bias Detection Dashboard**.
-  - **Objective**: Prove we aren't racist/sexist.
-  - **Step 1**: Ingest student metadata (anonymized).
-  - **Step 2**: Run a Correlation Analysis (`pandas.corr()`) between "Non-Native English Speaker Status" and "Grammar Score".
-  - **Step 3**: If the correlation is strong (> 0.5), alert the administration: "The Grammar Agent is punishing ESL students too harshly."
-  - **Step 4**: Generate a PDF Compliance Report using `weasyprint` for the University Accreditation Board.
+
+#### 5.1 Bias Dashboard
+- [ ] **Correlation Engine**:
+  - **Library**: `pandas`.
+  - **Step**: Load DataFrame: `df = pd.read_csv("grades.csv")`.
+  - **Step**: `corr = df['english_proficiency'].corr(df['grammar_score'])`.
+  - **Alert**: `if corr > 0.5: send_slack_alert("POSSIBLE BIAS DETECTED")`.
+
+#### 5.2 Regulatory Reports
+- [ ] **PDF Generation**:
+  - **Library**: `WeasyPrint`.
+  - **Step**: Design HTML template: `<h1>Annual Accreditation Report</h1>...`.
+  - **Step**: `HTML(string=rendered_html).write_pdf("report.pdf")`.
 
 
 

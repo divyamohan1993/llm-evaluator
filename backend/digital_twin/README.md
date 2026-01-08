@@ -64,81 +64,158 @@ The **Digital Twin Engine** creates a virtual replica of each teacher's grading 
 
 
 
+
 ### ⚡ AGENTIC ACCELERATION ENABLED
 **Timeline Compressed via Antigravity, Jules, & OpenAI O1.**
 **Target:** Enterprise Grade | **Speed:** Extreme
 
-### Day 1: The Soul of the Machine
-- [ ] **TODO Jatin (Agent: Antigravity)**: **Psychometric Profiling Pipeline**.
-  - **Objective**: Don't just act like the teacher; *become* the teacher.
-  - **Step 1 (Ingestion)**: Load teacher's past 100 emails and feedback comments.
-  - **Step 2 (Analysis)**: Use a library like `scikit-learn` or `textblob` to calculate sentiment polarity.
-  - **Step 3 (Trait Mapping)**: Map these sentiments to the Big Five Personality Traits (Openness, Conscientiousness, etc.) using a zero-shot classifier model.
-  - **Step 4 (Storage)**: Store this as a vector in `ChromaDB` using the HNSW index for ultra-fast <10ms retrieval.
+### 🔰 PRE-REQUISITES (Do this first!)
+- [ ] **Install Python 3.10+**: `python --version` to check.
+- [ ] **Install Core Libraries**:
+  ```bash
+  pip install chromadb sentence-transformers textblob scikit-learn numpy pydantic reportlab openai
+  ```
+- [ ] **Download Models**:
+  ```python
+  from sentence_transformers import SentenceTransformer
+  model = SentenceTransformer('all-MiniLM-L6-v2') # Download once
+  ```
 
-- [ ] **TODO Jatin (Agent: O1)**: **Bias Mitigation Engine**.
-  - **Objective**: Ensure FAIR grading.
-  - **Step 1 (Counterfactuals)**: Create a test function `detect_bias(answer)`.
-  - **Step 2**: Automatically replace names like "John" with "Priya" or "Keisha" in the student answer.
-  - **Step 3**: Grade both versions. If the score differs by > 5%, raise a **CRITICAL BIAS ALERT** and freeze the marking. 
-  - **Step 4**: Log this deviation for auditing.
+---
 
-### Day 2: Advanced mimicry
-- [ ] **TODO Jatin (Agent: Jules)**: **Pet Peeve Amplifier**.
-  - **Objective**: Capture the teacher's specific annoyances.
-  - **Step 1 (Extraction)**: Use an LLM to extract "Negative Sentiment Constraints" from the teacher's past grading logs (e.g., "Always forgets citations").
-  - **Step 2 (Injection)**: Inject these as System Instructions: "You are Professor X. You HATE passive voice. If found, react aggressively."
-  - **Step 3**: When generating feedback, use specific idioms the teacher uses (e.g., "This is sloppy!" vs "Please revise.").
+### Day 1: The Soul of the Machine (Micro-Steps)
 
-- [ ] **TODO Jatin (Agent: Claude Code)**: **Few-Shot Hyper-Personalization**.
-  - **Objective**: Grade based on precedent.
-  - **Step 1 (Retrieval)**: When grading a new paper, search `ChromaDB` for the "Nearest Neighbor" past papers.
-  - **Step 2**: Find 3 "A" Grade papers and 3 "F" Grade papers effectively "teaching" the model the standard.
-  - **Step 3**: Pass these 6 examples into the LLM context window ("Here is what an A looks like...").
-  - **Step 4 (Style Transfer)**: Use `LoRA` (Low-Rank Adaptation) adapters if possible to switch between different teacher "Fine-tunes" instantly.
+#### 1.1 Psychometric Profiling Ingestor (Agent: Antigravity)
+- [ ] **Data Loader**:
+  - File: `backend/digital_twin/ingestion.py`
+  - **Step**: Create `def load_teacher_data(folder_path):`.
+  - **Step**: Use `glob` to read all `.txt` files in `data/teachers/phys_101/`. 
+  - **Step**: Clean text: `text.replace('\n', ' ')`.
+- [ ] **Sentiment Analysis (Big Five Proxy)**:
+  - **Library**: `TextBlob` or `VADER`.
+  - **Code**:
+    ```python
+    from textblob import TextBlob
+    polarity = TextBlob(teacher_text).sentiment.polarity
+    # Mapping: High Polarity (Positive) -> High "Agreeableness"
+    # Low Polarity (Critical) -> Low "Agreeableness" (Strict Grader)
+    ```
+- [ ] **Vector Storage (ChromaDB)**:
+  - **Step**: Initialize DB. `client = chromadb.PersistentClient(path="./chroma_db")`.
+  - **Step**: Create Collection. `collection = client.get_or_create_collection("teacher_personas")`.
+  - **Step**: Embedding. The `sentence-transformers` library converts "I hate late submissions" into `[0.1, 0.5, -0.9...]`.
+  - **Step**: Upsert. `collection.add(documents=[text], metadatas=[{"trait": "strictness"}], ids=["rule_1"])`.
+
+#### 1.2 Bias Mitigation Engine
+- [ ] **Counterfactual Generator**:
+  - File: `backend/digital_twin/bias_check.py`
+  - **Step**: Create a function that takes a Student Answer.
+  - **Step**: Use simple string replace:
+    ```python
+    def generate_variants(text):
+        variants = []
+        variants.append(text.replace("He", "She").replace("him", "her")) # Gender Swap
+        variants.append(text.replace("John", "Mohammed")) # Cultural Swap
+        return variants
+    ```
+- [ ] **Variance Test**:
+  - **Step**: Run the grading loop on ALL variants.
+  - **Step**: `assert max(scores) - min(scores) < 5`. If the score gap is > 5 points just because of the name, raise `BiasException`.
+
+---
+
+### Day 2: Advanced Mimicry
+
+#### 2.1 Pet Peeve Amplifier (Agent: Jules)
+- [ ] **Constraint Extraction**:
+  - **Prompt**: Send teacher history to LLM.
+    - "Extract every phrase where the teacher uses angry or capital words. Format as JSON list."
+    - Output: `["passive voice", "wikipedia citations", "run-on sentences"]`.
+- [ ] **System Prompt Injection**:
+  - File: `backend/digital_twin/prompts.py`.
+  - **Code**:
+    ```python
+    system_prompt = f"""
+    You are Professor Snape.
+    Your Pet Peeves are: {', '.join(pet_peeves)}.
+    If you see these, deduct 10 points and write a SARCASTIC comment.
+    """
+    ```
+
+#### 2.2 Few-Shot Hyper-Personalization
+- [ ] **Retrieval Logic**:
+  - **Step**: When grading a new paper, embed it: `query_vec = model.encode(new_paper)`.
+  - **Step**: Query Chroma: `results = collection.query(query_embeddings=query_vec, n_results=3)`.
+  - **Step**: Determine grade provided in those results.
+- [ ] **Context Window Stuffing**:
+  - **Step**: Construct the refined prompt.
+    ```text
+    Here is a past paper that got an A: [INSERT_RETRIEVED_TEXT_1]
+    Here is a past paper that got an F: [INSERT_RETRIEVED_TEXT_2]
+    Now grade this new paper by comparing it to the above.
+    ```
+
+---
 
 ### Day 3: The Decision Matrix
-- [ ] **TODO Jatin**: **Chain of Verification (CoV)**.
-  - **Objective**: Stop the AI from being confidently wrong.
-  - **Step 1**: Initial Grade.
-  - **Step 2**: Challenge Step. Ask the model: "List 3 reasons why your grade might be too high."
-  - **Step 3**: Verify Step. Check those reasons against the text.
-  - **Step 4**: Final Decision. Adjust the score based on the verification. This loop prevents hallucinations.
 
-- [ ] **TODO Jatin**: **Veto Power with Legal Audit**.
-  - **Objective**: Explainability is key for lawsuits.
-  - **Step 1**: If the Digital Twin overrides the Swarm (e.g., Swarm says 90, Twin says 50), trigger a mandatory log.
-  - **Step 2**: Generate a PDF report using `reportlab`.
-  - **Step 3**: Content: "I overrode the score because the student violated the specific 'No Wikipedia Sources' pet peeve, which acts as a veto condition."
-  - **Step 4**: Save this PDF to `r:/llm-evaluator/audits/`.
+#### 3.1 Chain of Verification (CoV)
+- [ ] **Self-Reflection Loop**:
+  - File: `backend/digital_twin/logic.py`
+  - **Step 1**: `draft_grade = llm.predict(answer)`.
+  - **Step 2**: `critique = llm.predict(f"Attack this grade: {draft_grade}. Is it fair?")`.
+  - **Step 3**: `final_grade = llm.predict(f"Refine the grade based on this critique: {critique}")`.
+  - **Why?**: This prevents "Hallucinated Generosity".
+
+#### 3.2 Veto & Explainability
+- [ ] **PDF Generator**:
+  - **Library**: `reportlab`.
+  - **Step**: Create `def generate_audit_report(student_id, reasoning):`.
+  - **Step**: `c = canvas.Canvas(f"audits/{student_id}.pdf")`.
+  - **Step**: `c.drawString(100, 750, f"VETO REASON: {reasoning}")`.
+  - **Step**: `c.save()`.
+
+---
 
 ### Day 4: Enterprise Scale & Privacy
-- [ ] **TODO Jatin**: **Federated Learning Support**.
-  - **Objective**: Learn from teacher behavior without stealing their data.
-  - **Step 1**: Train the style adapter LOCALLY on the teacher's laptop.
-  - **Step 2**: Send *only* the weight updates (gradients) to the central server, not the student emails/essays.
-  - **Step 3 (Privacy)**: Add "Differential Privacy" noise (random jitter) to the weights so no individual student data can be reverse-engineered.
 
-- [ ] **TODO Jatin**: **Multi-Tenant Teacher Isolation**.
-  - **Objective**: Strict data separation.
-  - **Step 1**: Create separate `ChromaDB` collections for `teacher_physics_101` and `teacher_history_202`.
-  - **Step 2**: Ensure the API requires a specific `teacher_api_key` to access that collection.
-  - **Step 3**: Write a test case that tries to access History data with a Physics key and assert it FAILS with `403 Forbidden`.
+#### 4.1 Federated Learning (Simulation)
+- [ ] **Local Training Loop**:
+  - **Concept**: We pretend the model trains on the teacher's laptop.
+  - **Step**: Use `peft` (Parameter-Efficient Fine-Tuning) library if you have a GPU, otherwise mock this.
+  - **Mock Step**: "Training... Loss: 0.5... Loss: 0.1... Done." (For the demo).
+  - **Real Step (Optional)**: Calculate gradients on valid data and save the `adapter_model.bin` file.
+
+#### 4.2 Multi-Tenant Isolation
+- [ ] **API Key Middleware**:
+  - File: `backend/main.py` (FastAPI).
+  - **Step**:
+    ```python
+    async def verify_teacher(x_api_key: str = Header(...)):
+        user = db.get(x_api_key)
+        if not user: raise HTTPException(403)
+        return user_collection_name
+    ```
+  - **Test**: Try accessing `Physics_DB` with `History_Key`. It must fail.
+
+---
 
 ### Day 5: Validation & Deployment
-- [ ] **TODO Jatin**: **Turing Test for Grades**.
-  - **Objective**: Prove it works.
-  - **Step 1**: Prepare a dataset of 100 papers. 
-  - **Step 2**: Have the real teacher grade 50. Have the AI grade 50.
-  - **Step 3**: Mix them up. Ask the teacher to identify which ones they graded.
-  - **Scoring**: If they get it right ~50% of the time (random guessing), we have successfully cloned them.
 
-- [ ] **TODO Jatin**: **Feedback Loop Automation**.
-  - **Objective**: The model gets smarter every day.
-  - **Step 1**: Build a UI button "Correct this Grade".
-  - **Step 2**: When clicked, capture the *Teacher's Correction*.
-  - **Step 3**: Immediately run `chromadb.upsert()` to add this new data point to the vector store.
-  - **Step 4**: The very next grading run will use this new "lesson".
+#### 5.1 Turing Test Interface
+- [ ] **Blind Test UI**:
+  - File: `frontend/turing.html`.
+  - **Step**: simple HTML page with two text boxes.
+    - Left: "AI Feedback". Right: "Human Feedback".
+    - Buttons: "Which one is Human?"
+  - **Metric**: If the teacher clicks "AI" thinking it's Human > 50% of the time, WE WIN.
+
+#### 5.2 Feedback Loop
+- [ ] **Active Learning Endpoint**:
+  - **Endpoint**: `POST /api/v1/correction`.
+  - **Payload**: `{"question_id": 123, "ai_grade": 70, "teacher_corrected_grade": 90}`.
+  - **Action**: Immediately re-embed this answer with the metadata `{"grade": 90}` so the nearest neighbor search finds it next time.
+
 
 
 

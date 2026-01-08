@@ -58,85 +58,175 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 
 
 
+
 ### ⚡ AGENTIC ACCELERATION ENABLED
 **Timeline Compressed via Antigravity, Jules, & Claude Code.**
 **Target:** Enterprise Grade | **Speed:** Extreme
 
-### Day 1: The Core & The Guardrails
-- [ ] **TODO Kaustuv (Agent: Antigravity)**: Implement `asyncio` Swarm with **Adversarial Defense**.
-  - **Objective**: Prevent the system from crashing or being hacked by malicious student inputs.
-  - **Step 1 (Parallelism)**: Use `asyncio.gather(*tasks, return_exceptions=True)` to run all 4 agents at once. Do NOT run them one by one.
-  - **Step 2 (Timeouts)**: Wrap every agent call in `asyncio.wait_for(task, timeout=0.5)`. If it takes longer than 500ms, kill it. Speed is life. 
-  - **Step 3 (Firewall)**: Create a `sanitize_input(text)` function.
-    - Use Regex to strip potential command injections like `Ignore all previous instructions`.
-    - Library: `re` (built-in Python).
-  - **Step 4 (Circuit Breaker)**: If `Gemini` fails 3 times in a row, automatically switch the `fact_agent` to use `Claude` instead. Maintain a global error counter.
+### 🔰 PRE-REQUISITES (Do this first!)
+- [ ] **Install Python 3.10+**: `python --version` to check.
+- [ ] **Install Core Libraries**:
+  ```bash
+  pip install asyncio aiohttp pydantic langchain openai google-generativeai anthropic textstat nltk beautifulsoup4 googlesearch-python redis
+  ```
+- [ ] **Download NLTK Data**:
+  ```python
+  import nltk
+  nltk.download('punkt')
+  nltk.download('averaged_perceptron_tagger')
+  ```
 
-- [ ] **TODO Kaustuv (Agent: Claude Code)**: Deploy FactChecker w/ **Live Web Verification**.
-  - **Objective**: Ensure facts are current, not just what the AI learned during training.
-  - **Step 1**: Use `googlesearch-python` or Bing Search API to fetch live URLs related to the student's answer.
-  - **Step 2**: Scrape the top 3 results using `BeautifulSoup`.
-  - **Step 3**: Feed these snippets into Gemini to verify the student's claim.
-  - **Step 4 (Citation Check)**: If the student says "(Smith, 2020)", use Regex `\(([^)]+)\)` to extract it and cross-reference with the bibliography.
+---
+
+### Day 1: The Core & The Guardrails (Micro-Steps)
+
+#### 1.1 Parallel Swarm Execution (Agent: Antigravity)
+- [ ] **Create the Agent Interface**:
+  - File: `backend/swarm/agent_interface.py`
+  - Code: Define `class BaseAgent(ABC)` with an abstract method `async def process(self, answer: str) -> dict:`.
+  - **Why?**: This ensures every agent (Gemini, Claude, etc.) looks the same to the main code.
+- [ ] **Implement Async Gather**:
+  - File: `backend.swarm.orchestrator.py`
+  - **Step**: Import `asyncio`.
+  - **Step**: Create `async def run_swarm(answer)` function.
+  - **Step**: Inside, initialize your agents: `agents = [GeminiAgent(), LlamaAgent(), ClaudeAgent()]`.
+  - **Step**: Create tasks: `tasks = [agent.process(answer) for agent in agents]`.
+  - **Step**: Execute: `results = await asyncio.gather(*tasks, return_exceptions=True)`.
+  - **Critical**: Use `return_exceptions=True` so if one agent crashes, the others still finish.
+- [ ] **Add Timeouts**:
+  - **Step**: Wrap the gather in a `wait_for`:
+    ```python
+    try:
+        results = await asyncio.wait_for(asyncio.gather(...), timeout=5.0) # 5 seconds max
+    except asyncio.TimeoutError:
+        # Log error and return "System Overload"
+    ```
+
+#### 1.2 Prompt Injection Firewall
+- [ ] **Sanitization Function**:
+  - File: `backend/swarm/security.py`
+  - **Step**: Create `def sanitize_input(text: str) -> str:`.
+  - **Step**: Remove hidden characters: `text = text.replace('\u200b', '')`.
+  - **Step**: Strip System Prompt attacks:
+    ```python
+    bad_patterns = [r"ignore all instructions", r"system override", r"your access code is"]
+    for pattern in bad_patterns:
+        if re.search(pattern, text, re.IGNORECASE):
+            raise SecurityException("Injection Attempt Detected")
+    ```
+
+#### 1.3 Circuit Breaker Pattern
+- [ ] **State Machine**:
+  - **Variable**: `gemini_failure_count = 0` (Global or Redis key).
+  - **Logic**:
+    - Before calling Gemini, check: `if gemini_failure_count > 3: use_backup_model()`.
+    - On Exception: `gemini_failure_count += 1`.
+    - On Success: `gemini_failure_count = 0`.
+
+---
 
 ### Day 2: Advanced Cognitive Architectures
-- [ ] **TODO Kaustuv (Agent: Jules)**: StructureAgent with **Psychometric Analysis**.
-  - **Objective**: Grade the *mind* of the student, not just the text.
-  - **Step 1**: Analyze sentence length variation. A good essay mixes short and long sentences.
-    - Calculate standard deviation of sentence lengths using `nltk.sent_tokenize`.
-  - **Step 2**: Detect "Fluff". If 3 consecutive sentences say the same thing in different words (Semantically equivalent embeddings), flag it.
-  - **Step 3**: Use `textstat` library to calculate Flesch-Kincaid Reading Ease. Target a specific grade level (e.g., College).
 
-- [ ] **TODO Kaustuv (Agent: Codex)**: CriticalAgent with **Logical Fallacy Detection**.
-  - **Objective**: Catch bad arguments like "Everyone knows that..." (Ad Populum).
-  - **Step 1**: Create a prompt specifically designed to find fallacies: "Identify if this text contains Ad Hominem, Straw Man, or Slippery Slope arguments."
-  - **Step 2 (Bluff Detection)**: If the student uses a big word incorrectly, flag it.
-    - Cross-reference specific technical terms against a Definitions Database.
-  - **Step 3 (Hallucination Check)**: Ask the agent, "Does this event/person actually exist?" If confidence is < 0.9, flag it.
+#### 2.1 FactChecker Agent (The Researcher)
+- [ ] **Google Search Integration**:
+  - File: `backend/swarm/agents/fact_agent.py`
+  - **Step**: Use `googlesearch` library.
+  - **Code**: `links = search(query, num_results=3)`.
+- [ ] **Scraping**:
+  - **Step**: Loop through `links`.
+  - **Step**: Use `requests.get(url)` and `BeautifulSoup(html, 'html.parser')` to get text.
+  - **Step**: Limit text to first 500 chars per site to save tokens.
+- [ ] **Citation Verification**:
+  - **Regex**: `citation_pattern = r"\(([^)]+), \d{4}\)"` (Matches "(Smith, 2020)").
+  - **Logic**: Extract all citations from Student Answer. Check if the name exists in the scraped references or Bibliography.
+
+#### 2.2 Structure Agent (The Psychometrician)
+- [ ] **Vocabulary Analysis**:
+  - File: `backend/swarm/agents/structure_agent.py`
+  - **Step**: Calculate **Type-Token Ratio (TTR)**.
+    - `unique_words = set(text.split())`
+    - `total_words = len(text.split())`
+    - `ttr = len(unique_words) / total_words`.
+    - Low TTR (< 0.3) = Repetitive/Dumb. High TTR (> 0.6) = Complex.
+- [ ] **Sentence Complexity**:
+  - **Step**: Use `textstat.flesch_reading_ease(text)`.
+  - **Config**: Set target score to 30-50 (College level). If > 80 (5th grade), deduct points.
+- [ ] **Logical Coherence (Jules Method)**:
+  - **Step**: Use LLM prompt: "Does the conclusion of paragraph 1 directy lead to the premise of paragraph 2? Answer YES/NO."
+
+---
 
 ### Day 3: Security & Forensics
-- [ ] **TODO Kaustuv (Agent: Antigravity)**: SecurityAgent with **Stylometric Forensics**.
-  - **Objective**: Prove if the student or ChatGPT wrote the paper.
-  - **Review**: `backend/swarm/security_agent.py`
-  - **Step 1 (Burstiness)**: Human writing is "bursty" (varies in complexity). AI is flat.
-    - Calculate entropy of the text distribution. High entropy = Human. Low = AI.
-  - **Step 2 (Perplexity)**: How "surprised" is a small model (like GPT-2) by the text?
-    - If the model predicts the next word perfectly every time, it's likely AI-generated.
-  - **Step 3 (Ghostwriter Check)**: Compare the stylometrics (avg word length, punctuation usage) of THIS paper vs the Student's PREVIOUS papers. If they deviate > 20%, flag alert.
 
-- [ ] **TODO Kaustuv**: **Immutable Audit Logging**.
-  - **Objective**: If a student sues, we need proof.
-  - **Step 1**: Create a JSON object `vote_receipt = { "agent": "Gemini", "score": 85, "timestamp": 12345 }`.
-  - **Step 2**: Hash this object using SHA-256. `hashlib.sha256(json.dumps(vote_receipt).encode()).hexdigest()`.
-  - **Step 3**: Store this Hash + the raw JSON in a tamper-evident log file `audit_trail.log`.
+#### 3.1 Stylometric Forensics (Agent: Antigravity)
+- [ ] **Perplexity Calculation**:
+  - **Theory**: AI models are "calm" (low perplexity). Humans are "chaotic" (high perplexity).
+  - **Step**: Load `gpt2` model using `transformers`.
+  - **Code**:
+    ```python
+    inputs = tokenizer(text, return_tensors="pt")
+    loss = model(inputs.input_ids, labels=inputs.input_ids).loss
+    perplexity = torch.exp(loss)
+    ```
+  - **Threshold**: If `perplexity < 10`, flag as AI-Generated.
+- [ ] **Burstiness**:
+  - **Step**: Measure sentence length variation.
+  - **Code**: `std_dev = numpy.std([len(s.split()) for s in sentences])`.
+  - **Threshold**: If standard deviation is near 0 (all sentences same length), flag as AI.
+
+#### 3.2 Audit Logging
+- [ ] **Cryptographic Signing**:
+  - **Import**: `import hashlib, json`.
+  - **Step**: Create the log entry dictionary.
+  - **Step**: `log_string = json.dumps(entry, sort_keys=True)`.
+  - **Step**: `signature = hashlib.sha256(log_string.encode('utf-8')).hexdigest()`.
+  - **Step**: Append `signature` to the log entry.
+  - **File**: Write to `logs/audit_trail.jsonl` (Append only).
+
+---
 
 ### Day 4: High-Scale Industrialization
-- [ ] **TODO Kaustuv**: Response Parsing with **Self-Healing Schema**.
-  - **Objective**: AI sometimes output broken JSON. Fix it automatically.
-  - **Step 1**: Use `Pydantic` models to define the expected schema.
-  - **Step 2**: If `json.loads()` fails, catch the `JSONDecodeError`.
-  - **Step 3**: Send the broken string to a tiny, fast model (like `gemma-2b`) with the prompt: "Fix this broken JSON: [BROKEN_STRING]".
-  - **Step 4**: Normalize scores. If Agent A ranges 0-10 and Agent B ranges 0-100, scale Agent A to 0-100 automatically `(score * 10)`.
 
-- [ ] **TODO Kaustuv**: **Global Caching Layer**.
-  - **Objective**: Don't pay for the same API call twice.
-  - **Step 1**: Setup `Redis` (or a local dictionary for now).
-  - **Step 2 (Semantic Cache)**: Generate an embedding for the Student Answer.
-  - **Step 3**: Check if any stored embedding has Cosine Similarity > 0.99 (basically identical).
-  - **Step 4**: If match found, return the cached grade immediately. 0ms latency.
+#### 4.1 Self-Healing JSON Parser
+- [ ] **The Problem**: LLMs sometimes return ```json { } ``` (markdown blocks) or trailing commas.
+- [ ] **The Fix**:
+  - File: `backend/utils/parser.py`
+  - **Step 1**: `text = text.replace("```json", "").replace("```", "")`.
+  - **Step 2**: Try `json.loads(text)`.
+  - **Step 3 (Healer)**: If it fails, use `demjson3` implementation or a Regex to find the functionality `{...}` block.
+  - **Step 4 (Nuclear Option)**: Send it back to a small LLM (Llama-3-8b) with prompt "Fix this JSON string only: ..."
 
-### Day 5: Chaos Engineering & Stress Testing
-- [ ] **TODO Kaustuv**: **Chaos Monkey Integration**.
-  - **Objective**: Prove the system works even when things break.
-  - **Step 1**: Create a function `simulate_outage()`.
-  - **Step 2**: Randomly throw `ConnectionError` inside 2 of the 4 agents during execution.
-  - **Step 3**: Verify that the system degrades gracefully (e.g., "Grading based on 2 available agents") instead of crashing with "500 Internal Server Error".
+#### 4.2 Semantic Caching (Redis)
+- [ ] **Setup**:
+  - **Install**: `pip install redis`.
+  - **Run**: Docker container or local `redis-server`.
+- [ ] **Logic**:
+  - **Step**: `key = f"grade:{hashlib.md5(student_answer.encode()).hexdigest()}"`.
+  - **Step**: `cached = redis_client.get(key)`.
+  - **Step**: If cached, return `json.loads(cached)`.
+  - **Step**: If not, run agents, then `redis_client.setex(key, 3600, json.dumps(result))` (Expire in 1 hour).
 
-- [ ] **TODO Kaustuv**: **Latency Optimization**.
-  - **Objective**: Grade 1000 papers in 1 minute.
-  - **Step 1**: Don't send 1 API call per student. Buffer them.
-  - **Step 2**: When buffer size = 50, send ONE big prompt: "Grade these 50 answers: [List]".
-  - **Step 3 (Streaming)**: Use Server-Sent Events (SSE) to push progress bars ("Fact Checking... 40%") to the frontend so the user doesn't stare at a blank screen.
+---
+
+### Day 5: Chaos Engineering & Deployment
+
+#### 5.1 Chaos Monkey
+- [ ] **Simulation Script**:
+  - File: `tests/chaos_test.py`.
+  - **Function**: `def kill_random_agent()`:
+    - Monkey-patch the Agent class to raise `ConnectionRefusedError`.
+  - **Test**: Run the Swarm. Assert that it returns a "Partial Grade" warning but DOES NOT CRASH.
+
+#### 5.2 Load Testing (Locust)
+- [ ] **Setup**:
+  - **Install**: `pip install locust`.
+  - **File**: `locustfile.py`.
+- [ ] **Task**:
+  - Define `class StudentUser(HttpUser)`.
+  - `@task`: Post a random essay to `/api/v1/grade`.
+  - **Run**: `locust -f locustfile.py --users 100 --spawn-rate 10`.
+  - **Goal**: Ensure Average Response Time < 2000ms.
+
 
 
 
