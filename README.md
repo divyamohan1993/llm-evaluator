@@ -36,14 +36,43 @@
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-## 👥 Team & Branches
+## 👥 Team Assignments & Instructions
 
-| Engineer | Role | Branch |
-|----------|------|--------|
-| **Kaustuv** | AI Swarm Engineer | `feat/kaustuv-swarm` |
-| **Jatin** | Digital Twin Architect | `feat/jatin-twin` |
-| **Anshuman** | Hybrid Infrastructure | `feat/anshuman-hybrid` |
-| **Anshul** | Consensus Logic | `feat/anshul-logic` |
+Each team member has their own branch and dedicated folder. **Read your folder's README for detailed instructions and TODO lists.**
+
+| Engineer | Role | Branch | Folder | Instructions |
+|----------|------|--------|--------|--------------|
+| **Kaustuv** | AI Swarm Engineer | `feat/kaustuv-swarm` | `backend/swarm/` | [📖 Swarm README](backend/swarm/README.md) |
+| **Jatin** | Digital Twin Architect | `feat/jatin-twin` | `backend/digital_twin/` | [📖 Digital Twin README](backend/digital_twin/README.md) |
+| **Anshuman** | Hybrid Infrastructure | `feat/anshuman-hybrid` | `backend/infra/` | [📖 Infra README](backend/infra/README.md) |
+| **Anshul** | Consensus Logic | `feat/anshul-logic` | `config/` | [📖 Consensus README](config/README.md) |
+
+### Getting Started (For Team Members)
+
+1. **Clone the repo and switch to your branch:**
+   ```bash
+   git clone https://github.com/divyamohan1993/llm-evaluator.git
+   cd llm-evaluator
+   git checkout feat/<your-name>-<feature>
+   ```
+
+2. **Read your folder's README** - it contains:
+   - Architecture diagrams
+   - Massive TODO list (organized by week)
+   - API references
+   - Testing commands
+
+3. **Make changes, commit, and push:**
+   ```bash
+   git add .
+   git commit -m "Your descriptive message"
+   git push origin feat/<your-branch>
+   ```
+
+4. **CI/CD will automatically:**
+   - Run all tests (Python 3.10 & 3.11)
+   - Merge your changes to `main` if tests pass
+   - Sync `main` changes to all other feature branches
 
 ## 🚀 Quick Start
 
