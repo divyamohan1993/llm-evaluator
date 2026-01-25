@@ -1,7 +1,7 @@
 # Marketing & Business Strategy - Anshul's Domain
 
 ## Owner: Anshul (Business Strategy & Marketing Lead)
-## Branch: `feat/anshul-business`
+## Branch: `feat/anshul-logic`
 
 > **Team Structure**: Kaustuv (AI) | Jatin (Data Science) | Anshuman (Cloud + Consensus) | Anshul (Marketing & Finance)
 >
