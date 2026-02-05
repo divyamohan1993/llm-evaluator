@@ -4,8 +4,8 @@ Decision Maker - Grade Synthesis
 
 Synthesizes final grades using swarm votes and teacher persona bias.
 
-Assigned to: Jatin (Digital Twin Architect)
-Branch: feat/jatin-twin
+Created by: Divya Mohan (Software Architect)
+Open for: Data Science Contributors
 """
 
 from dataclasses import dataclass
@@ -45,9 +45,9 @@ async def synthesize_grade(
     """
     Synthesize the final grade from swarm votes with teacher bias.
     
-    # TODO Jatin: Apply teacher personality weights to agent scores.
-    # TODO Jatin: Generate feedback in the teacher's unique voice.
-    # TODO Jatin: Handle veto scenarios (plagiarism detected).
+    # TODO: Apply teacher personality weights to agent scores.
+    # TODO: Generate feedback in the teacher's unique voice.
+    # TODO: Handle veto scenarios (plagiarism detected).
     
     Args:
         council_votes: Votes from all 4 swarm agents
@@ -117,8 +117,8 @@ async def _generate_teacher_feedback(
     """
     Generate feedback in the teacher's unique voice.
     
-    # TODO Jatin: Use LLM to generate personalized feedback.
-    # TODO Jatin: Apply pet peeves and style preferences.
+    # TODO: Use LLM to generate personalized feedback.
+    # TODO: Apply pet peeves and style preferences.
     """
     feedbacks = [v.feedback for v in votes if v.feedback]
     combined = " ".join(feedbacks[:3])

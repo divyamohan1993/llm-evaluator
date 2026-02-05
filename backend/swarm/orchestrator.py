@@ -5,8 +5,8 @@ Swarm Council Orchestrator
 Main orchestration engine for the 4-Agent Consensus Swarm.
 Uses asyncio.gather for parallel LLM inference to minimize latency.
 
-Assigned to: Kaustuv (AI Swarm Engineer)
-Branch: feat/kaustuv-swarm
+Created by: Divya Mohan (Software Architect)
+Open for: AI/ML Contributors
 """
 
 import asyncio
@@ -89,7 +89,7 @@ class SwarmCouncil:
     - Agent 3 (Claude/Mistral): Critical thinking & bluff detection
     - Agent 4 (BERT): AI-generation and plagiarism detection
     
-    # TODO Kaustuv: Use asyncio.gather to run these 4 LLM calls in parallel to reduce latency.
+    # TODO: Use asyncio.gather to run these 4 LLM calls in parallel to reduce latency.
     """
     
     def __init__(self):
@@ -97,7 +97,7 @@ class SwarmCouncil:
         self.hybrid_router = HybridRouter()
         
         # Initialize agents
-        # TODO Kaustuv: Consider using dependency injection for better testability
+        # TODO: Consider using dependency injection for better testability
         self.fact_agent = FactCheckerAgent(router=self.hybrid_router)
         self.structure_agent = StructureAgent(router=self.hybrid_router)
         self.critical_agent = CriticalAgent(router=self.hybrid_router)
@@ -109,7 +109,7 @@ class SwarmCouncil:
         """
         Initialize all agents and verify connectivity.
         
-        # TODO Kaustuv: Add retry logic for agent initialization failures.
+        # TODO: Add retry logic for agent initialization failures.
         """
         await self.hybrid_router.health_check()
         self._initialized = True
@@ -133,16 +133,16 @@ class SwarmCouncil:
         Returns:
             CouncilVotes containing all 4 agent evaluations
             
-        # TODO Kaustuv: Use asyncio.gather to run these 4 LLM calls in parallel to reduce latency.
-        # TODO Kaustuv: Implement timeout handling for slow/unresponsive agents.
-        # TODO Kaustuv: Add circuit breaker pattern for failing agents.
+        # TODO: Use asyncio.gather to run these 4 LLM calls in parallel to reduce latency.
+        # TODO: Implement timeout handling for slow/unresponsive agents.
+        # TODO: Add circuit breaker pattern for failing agents.
         """
         start_time = asyncio.get_event_loop().time()
         
         # =====================================================================
         # PARALLEL ASYNC DISPATCH - All 4 agents execute simultaneously
         # =====================================================================
-        # TODO Kaustuv: Use asyncio.gather to run these 4 LLM calls in parallel to reduce latency.
+        # TODO: Use asyncio.gather to run these 4 LLM calls in parallel to reduce latency.
         
         results = await asyncio.gather(
             # Agent 1 (Fact - Gemini): "Is this factually strictly true based on PDF?"
@@ -174,7 +174,7 @@ class SwarmCouncil:
         total_latency = (end_time - start_time) * 1000  # Convert to ms
         
         # Process results with error handling
-        # TODO Kaustuv: Implement fallback logic for failed agent calls
+        # TODO: Implement fallback logic for failed agent calls
         fact_vote, structure_vote, critical_vote, security_vote = self._process_results(results)
         
         return CouncilVotes(
@@ -189,7 +189,7 @@ class SwarmCouncil:
         """
         Process agent results and handle any exceptions.
         
-        # TODO Kaustuv: Add more sophisticated error handling and fallback logic.
+        # TODO: Add more sophisticated error handling and fallback logic.
         """
         processed = []
         agent_names = ["FactChecker", "StructureAnalyzer", "CriticalDetector", "SecurityGuard"]
@@ -217,7 +217,7 @@ class SwarmCouncil:
         
         Returns a dictionary with each agent's availability and health.
         
-        # TODO Kaustuv: Add detailed metrics (avg latency, success rate, etc.)
+        # TODO: Add detailed metrics (avg latency, success rate, etc.)
         """
         local_available = await self.hybrid_router.is_local_available()
         
@@ -264,7 +264,7 @@ class MockSwarmCouncil(SwarmCouncil):
     Does NOT call real APIs - returns predefined mock responses.
     Use this during CI tests to save money and avoid API rate limits.
     
-    # TODO Kaustuv: Add configurable mock responses for different test scenarios.
+    # TODO: Add configurable mock responses for different test scenarios.
     """
     
     async def gather_council_votes(

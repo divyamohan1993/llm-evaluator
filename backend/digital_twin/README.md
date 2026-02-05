@@ -1,9 +1,8 @@
-# Digital Twin Engine - Jatin's Domain
+# Digital Twin Engine
 
-## Owner: Jatin (Digital Twin Architect)
-## Branch: `feat/jatin-twin`
+**Created by:** Divya Mohan (Software Architect)
 
-> **Team Structure**: Kaustuv (AI) | Jatin (Data Science) | Anshuman (Cloud + Consensus) | Anshul (Marketing & Finance - see `docs/MARKETING_STRATEGY.md`)
+> **Open for Contributors:** This module is open for Data Science contributors to help build the teacher persona modeling and Vector RAG system.
 
 ---
 
@@ -13,7 +12,7 @@ The **Digital Twin Engine** creates a virtual replica of each teacher's grading 
 
 ---
 
-## Files Under Your Ownership
+## Files in This Module
 
 | File | Purpose | Priority |
 |------|---------|----------|
@@ -62,7 +61,7 @@ The **Digital Twin Engine** creates a virtual replica of each teacher's grading 
 
 ---
 
-## MASSIVE TODO LIST
+## TODO LIST
 
 
 
@@ -97,7 +96,7 @@ The **Digital Twin Engine** creates a virtual replica of each teacher's grading 
 
 ### Day 1: The Soul of the Machine (Micro-Steps)
 
-#### 1.1 Psychometric Profiling Ingestor (Agent: Antigravity)
+#### 1.1 Psychometric Profiling Ingestor
 - [ ] **Data Loader**:
   - File: `backend/digital_twin/ingestion.py`
   - **Step**: Create `def load_teacher_data(folder_path):`.
@@ -138,7 +137,7 @@ The **Digital Twin Engine** creates a virtual replica of each teacher's grading 
 
 ### Day 2: Advanced Mimicry
 
-#### 2.1 Pet Peeve Amplifier (Agent: Jules)
+#### 2.1 Pet Peeve Amplifier
 - [ ] **Constraint Extraction**:
   - **Prompt**: Send teacher history to LLM.
     - "Extract every phrase where the teacher uses angry or capital words. Format as JSON list."
@@ -365,4 +364,10 @@ pytest tests/test_digital_twin.py -v -m chromadb
 
 ## Contact
 
-For questions about the Digital Twin Engine, contact **Jatin** or create an issue with the label `digital-twin`.
+For questions about the Digital Twin Engine, create an issue with the label `digital-twin`.
+
+---
+
+## Project Credits
+
+**Created & Designed by:** Divya Mohan (Software Architect)

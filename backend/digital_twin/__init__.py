@@ -2,8 +2,8 @@
 Digital Twin Engine - Module Init
 =================================
 
-Assigned to: Jatin (Digital Twin Architect)
-Branch: feat/jatin-twin
+Created by: Divya Mohan (Software Architect)
+Open for: Data Science Contributors
 """
 
 from backend.digital_twin.personality_loader import load_teacher_persona

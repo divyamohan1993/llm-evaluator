@@ -1,26 +1,25 @@
-# Swarm Engine - Kaustuv's Domain
+# Swarm Engine
 
-## Owner: Kaustuv (AI Swarm Engineer)
-## Branch: `feat/kaustuv-swarm`
+**Created by:** Divya Mohan (Software Architect)
 
-> **Team Structure**: Kaustuv (AI) | Jatin (Data Science) | Anshuman (Cloud + Consensus) | Anshul (Marketing & Finance - see `docs/MARKETING_STRATEGY.md`)
+> **Open for Contributors:** This module is open for AI/ML contributors to help build and enhance the multi-agent swarm system.
 
 ---
 
 ## Overview
 
-The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent Consensus Swarm. Your responsibility is to ensure all 4 AI agents (Gemini, Llama3, Claude, BERT) work together seamlessly in parallel to evaluate student answers.
+The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent Consensus Swarm. Contributors to this module will ensure all 4 AI agents (Gemini, Llama3, Claude, BERT) work together seamlessly in parallel to evaluate student answers.
 
 ---
 
-## Files Under Your Ownership
+## Files in This Module
 
 | File | Purpose | Priority |
 |------|---------|----------|
 | `orchestrator.py` | Main SwarmCouncil class, parallel dispatch | HIGH |
 | `agents.py` | Individual agent implementations | HIGH |
 | `__init__.py` | Module exports | LOW |
-| `DEVNOTES.md` | Your development notes | - |
+| `DEVNOTES.md` | Development notes | - |
 
 ---
 
@@ -56,7 +55,7 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 
 ---
 
-## MASSIVE TODO LIST
+## TODO LIST
 
 
 
@@ -65,7 +64,7 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 **Timeline Compressed via Antigravity, Jules, & Claude Code.**
 **Target:** Production Ready | **Speed:** Extreme
 
-### � PATENTABLE FEATURE IMPLEMENTATION (NEW PRIORITY)
+### 🔬 PATENTABLE FEATURE IMPLEMENTATION (NEW PRIORITY)
 **Goal**: Build the "method" behind our IP claims.
 - [ ] **Feature #1: Cognitive Gap Analyzers** (`backend/swarm/agents/cga_agent.py`):
   - Build the "Reverse-Inference" chain that maps the logical steps required to reach the student's conclusion.
@@ -80,7 +79,7 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 
 
 
-### �🔰 PRE-REQUISITES (Do this first!)
+### 🔰 PRE-REQUISITES (Do this first!)
 - [ ] **Install Python 3.10+**: `python --version` to check.
 - [ ] **Install Core Libraries**:
   ```bash
@@ -97,7 +96,7 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 
 ### Day 1: The Core & The Guardrails (Micro-Steps)
 
-#### 1.1 Parallel Swarm Execution (Agent: Antigravity)
+#### 1.1 Parallel Swarm Execution
 - [ ] **Create the Agent Interface**:
   - File: `backend/swarm/agent_interface.py`
   - Code: Define `class BaseAgent(ABC)` with an abstract method `async def process(self, answer: str) -> dict:`.
@@ -168,14 +167,14 @@ The **Swarm Engine** is the core AI orchestration layer that manages the 4-Agent
 - [ ] **Sentence Complexity**:
   - **Step**: Use `textstat.flesch_reading_ease(text)`.
   - **Config**: Set target score to 30-50 (College level). If > 80 (5th grade), deduct points.
-- [ ] **Logical Coherence (Jules Method)**:
+- [ ] **Logical Coherence**:
   - **Step**: Use LLM prompt: "Does the conclusion of paragraph 1 directy lead to the premise of paragraph 2? Answer YES/NO."
 
 ---
 
 ### Day 3: Security & Forensics
 
-#### 3.1 Stylometric Forensics (Agent: Antigravity)
+#### 3.1 Stylometric Forensics
 - [ ] **Perplexity Calculation**:
   - **Theory**: AI models are "calm" (low perplexity). Humans are "chaotic" (high perplexity).
   - **Step**: Load `gpt2` model using `transformers`.
@@ -359,4 +358,10 @@ pytest tests/test_swarm.py -v -m integration
 
 ## Contact
 
-For questions about the Swarm Engine, contact **Kaustuv** or create an issue with the label `swarm-engine`.
+For questions about the Swarm Engine, create an issue with the label `swarm-engine`.
+
+---
+
+## Project Credits
+
+**Created & Designed by:** Divya Mohan (Software Architect)

@@ -10,8 +10,8 @@ Agents:
     - Claude/Mistral (Critical Detector): Identifies bluffing and hallucination
     - BERT (Security Guard): Detects AI-generated and plagiarized content
 
-Assigned to: Kaustuv (AI Swarm Engineer)
-Branch: feat/kaustuv-swarm
+Created by: Divya Mohan (Software Architect)
+Open for: AI/ML Contributors
 """
 
 from backend.swarm.orchestrator import SwarmCouncil

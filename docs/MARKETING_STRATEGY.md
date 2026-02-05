@@ -1,26 +1,23 @@
-# Marketing & Business Strategy - Anshul's Domain
+# Marketing & Business Strategy
 
-## Owner: Anshul (Business Strategy & Marketing Lead)
-## Branch: `feat/anshul-logic`
+**Created by:** Divya Mohan (Software Architect)
 
-> **Team Structure**: Kaustuv (AI) | Jatin (Data Science) | Anshuman (Cloud + Consensus) | Anshul (Marketing & Finance)
->
-> **Note:** Anshul handles ONLY non-technical marketing and finance work. All programming is done by the technical team.
+> **Open for Contributors:** This module is open for Business/Marketing contributors to help with market research, financial projections, and go-to-market strategy.
 
 ---
 
 ## Overview
 
-As a **BBA student** with expertise in **Marketing and Finance**, Anshul is responsible for the **non-technical business side** of the LLM Evaluator project. This includes market research, go-to-market strategy, pricing models, revenue projections, investor pitches, and brand positioning.
+This module handles the **non-technical business side** of the LLM Evaluator project. This includes market research, go-to-market strategy, pricing models, revenue projections, investor pitches, and brand positioning.
 
-**Technical Team for Reference:**
-- **Kaustuv** (AI) - [Swarm Engine](../backend/swarm/README.md)
-- **Jatin** (Data Science) - [Digital Twin Engine](../backend/digital_twin/README.md)
-- **Anshuman** (Cloud Computing) - [Infrastructure](../backend/infra/README.md) & [Consensus Systems](../config/README.md)
+**Technical Modules for Reference:**
+- [Swarm Engine](../backend/swarm/README.md) - AI/ML Module
+- [Digital Twin Engine](../backend/digital_twin/README.md) - Data Science Module
+- [Infrastructure](../backend/infra/README.md) & [Consensus Systems](../config/README.md) - Cloud/DevOps Module
 
 ---
 
-## Your Responsibilities
+## Contributor Responsibilities
 
 | Area | Description | Priority |
 |------|-------------|----------|
@@ -33,7 +30,7 @@ As a **BBA student** with expertise in **Marketing and Finance**, Anshul is resp
 
 ---
 
-## MASSIVE TODO LIST
+## TODO LIST
 
 ### 🎯 WEEK 1: Market Research & Analysis
 
@@ -210,7 +207,6 @@ As a **BBA student** with expertise in **Marketing and Finance**, Anshul is resp
     - LMS integration benefits
     - API partnership opportunities
     - White-label options
-  - **Note**: Technical API docs will be written by Anshuman
 
 ---
 
@@ -246,12 +242,12 @@ As a **BBA student** with expertise in **Marketing and Finance**, Anshul is resp
 
 ## Collaboration Points
 
-### What You'll Provide to Technical Team:
+### What Business Contributors Provide to Technical Team:
 - Market requirements (what features customers want)
 - Pricing constraints (cost limits for API usage)
 - Customer feedback (from research/interviews)
 
-### What Technical Team Provides to You:
+### What Technical Team Provides to Business Contributors:
 - Feature list and capabilities (for marketing materials)
 - Technical differentiation (for positioning)
 - Demo access (for screenshots in pitch deck)
@@ -270,13 +266,13 @@ Every week, discuss with the team:
 
 ## Contact
 
-For questions about Marketing & Business Strategy, contact **Anshul** or create an issue with the label `business-strategy`.
+For questions about Marketing & Business Strategy, create an issue with the label `business-strategy`.
 
 ---
 
 ## ⚠️ IMPORTANT NOTE
 
-**Anshul focuses ONLY on:**
+**Business Module focuses ONLY on:**
 - ✅ Market Research
 - ✅ Financial Analysis
 - ✅ Pricing Strategy
@@ -284,7 +280,13 @@ For questions about Marketing & Business Strategy, contact **Anshul** or create 
 - ✅ Investor Relations
 - ✅ Business Documentation
 
-**Technical work is handled by:**
-- 🔧 Kaustuv → AI/ML code (Swarm Engine)
-- 🔧 Jatin → Data Science code (Digital Twin)
-- 🔧 Anshuman → Cloud/Infrastructure + Consensus Logic
+**Technical work is handled in separate modules:**
+- 🔧 Swarm Engine → AI/ML code
+- 🔧 Digital Twin → Data Science code
+- 🔧 Infrastructure → Cloud/Infrastructure + Consensus Logic
+
+---
+
+## Project Credits
+
+**Created & Designed by:** Divya Mohan (Software Architect)

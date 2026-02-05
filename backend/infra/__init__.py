@@ -4,8 +4,8 @@ Hybrid Infrastructure Module
 
 Routes traffic between Cloud APIs and Local/Onboard LLM inference.
 
-Assigned to: Anshuman (Hybrid Infrastructure)
-Branch: feat/anshuman-hybrid
+Created by: Divya Mohan (Software Architect)
+Open for: Cloud/DevOps Contributors
 """
 
 from backend.infra.router import HybridRouter

@@ -5,8 +5,8 @@ Teacher Personality Loader
 Loads teacher personas from ChromaDB for Digital Twin grading.
 Uses Vector RAG to retrieve past feedback examples.
 
-Assigned to: Jatin (Digital Twin Architect)
-Branch: feat/jatin-twin
+Created by: Divya Mohan (Software Architect)
+Open for: Data Science Contributors
 """
 
 import os
@@ -32,10 +32,10 @@ async def load_teacher_persona(teacher_id: str) -> TeacherPersona:
     """
     Load a teacher's Digital Twin persona from ChromaDB.
     
-    # TODO Jatin: Retrieve the teacher's 'Pet Peeves' (e.g., 'hates passive voice') 
+    # TODO: Retrieve the teacher's 'Pet Peeves' (e.g., 'hates passive voice') 
     # and inject them into the system prompt.
-    # TODO Jatin: Implement vector similarity search for style matching.
-    # TODO Jatin: Cache frequently accessed personas for performance.
+    # TODO: Implement vector similarity search for style matching.
+    # TODO: Cache frequently accessed personas for performance.
     
     Args:
         teacher_id: Unique identifier for the teacher
@@ -43,7 +43,7 @@ async def load_teacher_persona(teacher_id: str) -> TeacherPersona:
     Returns:
         TeacherPersona with style vectors and preferences
     """
-    # TODO Jatin: Replace with actual ChromaDB retrieval
+    # TODO: Replace with actual ChromaDB retrieval
     
     # Default persona for development
     persona = TeacherPersona(
@@ -78,7 +78,7 @@ async def get_teacher_style_vector(teacher_id: str) -> list[float]:
     """
     Retrieve the teacher's style vector from ChromaDB.
     
-    # TODO Jatin: Implement actual vector retrieval from ChromaDB.
+    # TODO: Implement actual vector retrieval from ChromaDB.
     """
     return [0.5] * 128
 
@@ -87,7 +87,7 @@ async def get_past_feedback_examples(teacher_id: str, n: int = 5) -> list[str]:
     """
     Retrieve N examples of past feedback for few-shot prompting.
     
-    # TODO Jatin: Implement semantic search for relevant past feedback.
+    # TODO: Implement semantic search for relevant past feedback.
     """
     return [
         "Good effort, but the argument lacks depth.",

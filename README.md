@@ -10,6 +10,8 @@
 
 **SmartEvaluator-Omni** is a next-generation AI-powered examination grading system that leverages a **Multi-Agent Swarm** architecture to provide fair, unbiased, and comprehensive student answer evaluation.
 
+**Created by:** Divya Mohan (Software Architect)
+
 ### Core Features
 
 - **🤖 Consensus Swarm**: 4 specialized AI agents (Gemini + Llama + Mistral/Claude + BERT) work in parallel
@@ -36,54 +38,53 @@
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-## 👥 Team Assignments & Instructions
+## 👥 Open for Contributors
 
-Each team member has their own branch and dedicated folder. **Read your folder's README for detailed instructions and TODO lists.**
+This project is **open source** and welcomes contributions! Each module has its own README with detailed instructions.
 
-### Technical Team (Programming Required)
+### Technical Modules (Programming Required)
 
-| Engineer | Background | Role | Branch | Folder | Instructions |
-|----------|------------|------|--------|--------|--------------|
-| **Kaustuv** | AI | Swarm Engine | `feat/kaustuv-swarm` | `backend/swarm/` | [📖 Swarm README](backend/swarm/README.md) |
-| **Jatin** | Data Science | Digital Twin | `feat/jatin-twin` | `backend/digital_twin/` | [📖 Digital Twin README](backend/digital_twin/README.md) |
-| **Anshuman** | Cloud Computing | Infrastructure + Consensus | `feat/anshuman-hybrid` | `backend/infra/` + `config/` | [📖 Infra README](backend/infra/README.md), [📖 Consensus README](config/README.md) |
+| Role | Module | Folder | Instructions |
+|------|--------|--------|--------------|
+| AI/ML Contributor | Swarm Engine | `backend/swarm/` | [📖 Swarm README](backend/swarm/README.md) |
+| Data Science Contributor | Digital Twin | `backend/digital_twin/` | [📖 Digital Twin README](backend/digital_twin/README.md) |
+| Cloud/DevOps Contributor | Infrastructure + Consensus | `backend/infra/` + `config/` | [📖 Infra README](backend/infra/README.md), [📖 Consensus README](config/README.md) |
 
-### Business Team (No Programming Required)
+### Business Modules (No Programming Required)
 
-| Team Member | Background | Role | Instructions |
-|-------------|------------|------|--------------|
-| **Anshul** | BBA | Marketing & Finance | [📖 Marketing Strategy](docs/MARKETING_STRATEGY.md) |
+| Role | Focus Area | Instructions |
+|------|------------|--------------|
+| Business/Marketing Contributor | Marketing & Finance | [📖 Marketing Strategy](docs/MARKETING_STRATEGY.md) |
 
-> **Note:** Consensus Logic was originally assigned to Anshul but has been **reassigned to Anshuman** since it requires programming skills. Anshul focuses exclusively on market research, financial projections, and business strategy.
+### Getting Started (For Contributors)
 
-### Getting Started (For Technical Team Members)
-
-1. **Clone the repo and switch to your branch:**
+1. **Fork and clone the repo:**
    ```bash
    git clone https://github.com/divyamohan1993/llm-evaluator.git
    cd llm-evaluator
-   git checkout feat/<your-name>-<feature>
    ```
 
-2. **Read your folder's README** - it contains:
+2. **Create a feature branch:**
+   ```bash
+   git checkout -b feat/<your-feature>
+   ```
+
+3. **Read your module's README** - it contains:
    - Architecture diagrams
-   - Massive TODO list (organized by week)
+   - TODO list (organized by priority)
    - API references
    - Testing commands
 
-3. **Make changes, commit, and push:**
+4. **Make changes, commit, and push:**
    ```bash
    git add .
    git commit -m "Your descriptive message"
-   git push origin feat/<your-branch>
+   git push origin feat/<your-feature>
    ```
 
-4. **CI/CD will automatically:**
-   - Run all tests (Python 3.10 & 3.11)
-   - Merge your changes to `main` if tests pass
-   - Sync `main` changes to all other feature branches
+5. **Create a Pull Request** for review
 
-### Getting Started (For Anshul - Business Team)
+### Getting Started (For Business Contributors)
 
 1. **Read your instructions:** See [Marketing Strategy Guide](docs/MARKETING_STRATEGY.md)
 2. **Tools you'll use:** Word, Excel, PowerPoint, Google Docs - no coding required!
@@ -103,7 +104,7 @@ To start the monitor:
 3.  Keep this window open. It will automatically detect changes, commit them with meaningful messages, and push to your branch.
 
 
-## 🚀 Quick Start for Others
+## 🚀 Quick Start
 
 **The Easiest Way:**
 Just run the all-in-one launcher. It handles Git updates, dependencies, and server startup.
@@ -141,6 +142,13 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 - **Vector DB**: ChromaDB (Local) / Pinecone (Cloud)
 - **Local Inference**: Ollama (Llama 3)
 - **Cloud Inference**: Google Gemini Pro, Anthropic Claude, OpenAI GPT-4
+
+## 👨‍💻 Project Credits
+
+- **Created & Designed by:** Divya Mohan
+- **Architecture:** Divya Mohan
+- **Technical Specifications:** Divya Mohan
+- **Workflow Orchestration:** Divya Mohan
 
 ## 📄 License
 

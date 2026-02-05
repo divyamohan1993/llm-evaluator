@@ -5,8 +5,8 @@ Hybrid Router - Cloud/Local LLM Traffic Routing
 Routes requests between Cloud APIs and Local Ollama inference.
 Implements circuit breakers and automatic failover.
 
-Assigned to: Anshuman (Hybrid Infrastructure)
-Branch: feat/anshuman-hybrid
+Created by: Divya Mohan (Software Architect)
+Open for: Cloud/DevOps Contributors
 """
 
 import os
@@ -39,10 +39,10 @@ class HybridRouter:
     """
     Hybrid router for Cloud ↔ Local LLM traffic.
     
-    # TODO Anshuman: Implement circuit breakers. If Gemini API fails, 
+    # TODO: Implement circuit breakers. If Gemini API fails, 
     # failover to GPT-4o or Claude automatically.
-    # TODO Anshuman: Add request queuing for rate limiting.
-    # TODO Anshuman: Implement health checks for all backends.
+    # TODO: Add request queuing for rate limiting.
+    # TODO: Implement health checks for all backends.
     """
     
     def __init__(self):
@@ -64,7 +64,7 @@ class HybridRouter:
     
     async def health_check(self) -> dict:
         """Check health of all LLM backends."""
-        # TODO Anshuman: Run parallel health checks
+        # TODO: Run parallel health checks
         local_ok = await self.is_local_available()
         
         return {
@@ -78,7 +78,7 @@ class HybridRouter:
         """
         Check if local Ollama is available.
         
-        # TODO Anshuman: Implement caching with TTL.
+        # TODO: Implement caching with TTL.
         """
         if self._local_available is not None:
             return self._local_available
@@ -101,9 +101,9 @@ class HybridRouter:
         """
         Route request to appropriate LLM backend.
         
-        # TODO Anshuman: Implement circuit breakers. If Gemini API fails, 
+        # TODO: Implement circuit breakers. If Gemini API fails, 
         # failover to GPT-4o or Claude automatically.
-        # TODO Anshuman: Add latency-based routing.
+        # TODO: Add latency-based routing.
         """
         # Try preferred model first
         model_type = self._get_model_type(preferred_model)
@@ -115,7 +115,7 @@ class HybridRouter:
                 self._record_failure(model_type)
         
         # Fallback chain
-        # TODO Anshuman: Implement circuit breakers for automatic failover
+        # TODO: Implement circuit breakers for automatic failover
         fallback_chain = [
             ModelType.GEMINI,
             ModelType.CLAUDE,
@@ -165,7 +165,7 @@ class HybridRouter:
         """
         Call specific model backend.
         
-        # TODO Anshuman: Implement actual API calls.
+        # TODO: Implement actual API calls.
         """
         if model == ModelType.LOCAL:
             return await self._call_ollama(prompt, system_prompt)
@@ -180,7 +180,7 @@ class HybridRouter:
     
     async def _call_ollama(self, prompt: str, system_prompt: str) -> str:
         """Call local Ollama."""
-        # TODO Anshuman: Implement Ollama API call
+        # TODO: Implement Ollama API call
         async with httpx.AsyncClient(timeout=120.0) as client:
             resp = await client.post(
                 f"{self.ollama_host}/api/generate",
@@ -195,15 +195,15 @@ class HybridRouter:
     
     async def _call_gemini(self, prompt: str, system_prompt: str) -> str:
         """Call Google Gemini."""
-        # TODO Anshuman: Implement Gemini API call with langchain
+        # TODO: Implement Gemini API call with langchain
         return '{"score": 75, "confidence": 0.8, "feedback": "Gemini placeholder", "reasoning": "Mock"}'
     
     async def _call_claude(self, prompt: str, system_prompt: str) -> str:
         """Call Anthropic Claude."""
-        # TODO Anshuman: Implement Claude API call
+        # TODO: Implement Claude API call
         return '{"score": 75, "confidence": 0.8, "feedback": "Claude placeholder", "reasoning": "Mock"}'
     
     async def _call_openai(self, prompt: str, system_prompt: str) -> str:
         """Call OpenAI."""
-        # TODO Anshuman: Implement OpenAI API call
+        # TODO: Implement OpenAI API call
         return '{"score": 75, "confidence": 0.8, "feedback": "OpenAI placeholder", "reasoning": "Mock"}'

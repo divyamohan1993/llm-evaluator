@@ -5,8 +5,8 @@ Swarm Agents
 Individual AI agents for the Consensus Swarm.
 Each agent has a specialized role in evaluating student answers.
 
-Assigned to: Kaustuv (AI Swarm Engineer)
-Branch: feat/kaustuv-swarm
+Created by: Divya Mohan (Software Architect)
+Open for: AI/ML Contributors
 """
 
 import asyncio
@@ -41,7 +41,7 @@ class BaseAgent(ABC):
     
     Each agent specializes in evaluating a specific aspect of student answers.
     
-    # TODO Kaustuv: Add retry logic and exponential backoff for API failures.
+    # TODO: Add retry logic and exponential backoff for API failures.
     """
     
     def __init__(self, router: HybridRouter):
@@ -88,7 +88,7 @@ class FactCheckerAgent(BaseAgent):
     Uses the reference PDF context to verify the factual accuracy
     of the student's answer.
     
-    # TODO Kaustuv: Implement semantic similarity matching for partial fact verification.
+    # TODO: Implement semantic similarity matching for partial fact verification.
     """
     
     def __init__(self, router: HybridRouter):
@@ -105,7 +105,7 @@ class FactCheckerAgent(BaseAgent):
         """
         Evaluate the factual accuracy of the student's answer.
         
-        # TODO Kaustuv: Add chunk-based fact verification for long PDF contexts.
+        # TODO: Add chunk-based fact verification for long PDF contexts.
         """
         start_time = asyncio.get_event_loop().time()
         
@@ -123,7 +123,7 @@ class FactCheckerAgent(BaseAgent):
             latency = (end_time - start_time) * 1000
             
             # Parse response
-            # TODO Kaustuv: Add proper JSON parsing with error handling
+            # TODO: Add proper JSON parsing with error handling
             result = self._parse_response(response)
             
             return AgentVote(
@@ -178,7 +178,7 @@ Provide your evaluation in JSON format with score (0-100), confidence (0-1), fee
     
     def _parse_response(self, response: str) -> dict:
         """Parse the LLM response into a structured result."""
-        # TODO Kaustuv: Implement proper JSON parsing with regex fallback
+        # TODO: Implement proper JSON parsing with regex fallback
         import json
         try:
             return json.loads(response)
@@ -204,7 +204,7 @@ class StructureAgent(BaseAgent):
     Runs on local Ollama for privacy and cost efficiency.
     Falls back to cloud if local is unavailable.
     
-    # TODO Kaustuv: Add grammar-specific rules for different subjects.
+    # TODO: Add grammar-specific rules for different subjects.
     """
     
     def __init__(self, router: HybridRouter):
@@ -221,7 +221,7 @@ class StructureAgent(BaseAgent):
         """
         Evaluate the structure and grammar of the student's answer.
         
-        # TODO Kaustuv: Integrate with grammar-checking libraries for detailed feedback.
+        # TODO: Integrate with grammar-checking libraries for detailed feedback.
         """
         start_time = asyncio.get_event_loop().time()
         
@@ -306,7 +306,7 @@ class CriticalAgent(BaseAgent):
     Detects when students are making things up, using filler content,
     or providing vague non-answers.
     
-    # TODO Kaustuv: Train a custom model for domain-specific bluff detection.
+    # TODO: Train a custom model for domain-specific bluff detection.
     """
     
     def __init__(self, router: HybridRouter):
@@ -323,7 +323,7 @@ class CriticalAgent(BaseAgent):
         """
         Evaluate whether the student is bluffing or hallucinating.
         
-        # TODO Kaustuv: Add detection for common bluffing patterns.
+        # TODO: Add detection for common bluffing patterns.
         """
         start_time = asyncio.get_event_loop().time()
         
@@ -426,7 +426,7 @@ class SecurityAgent(BaseAgent):
     - AI-generated content (ChatGPT, Claude, etc.)
     - Plagiarized content (similarity to known sources)
     
-    # TODO Kaustuv: Integrate with external plagiarism databases.
+    # TODO: Integrate with external plagiarism databases.
     """
     
     def __init__(self, router: HybridRouter):
@@ -443,8 +443,8 @@ class SecurityAgent(BaseAgent):
         """
         Evaluate whether the answer is AI-generated or plagiarized.
         
-        # TODO Kaustuv: Implement BERT-based detection with confidence scoring.
-        # TODO Kaustuv: Add database of known AI-generated patterns.
+        # TODO: Implement BERT-based detection with confidence scoring.
+        # TODO: Add database of known AI-generated patterns.
         """
         start_time = asyncio.get_event_loop().time()
         
@@ -489,8 +489,8 @@ class SecurityAgent(BaseAgent):
         
         Returns a score from 0-100 indicating likelihood of AI generation.
         
-        # TODO Kaustuv: Implement actual BERT-based AI detection.
-        # TODO Kaustuv: Use perplexity and burstiness metrics.
+        # TODO: Implement actual BERT-based AI detection.
+        # TODO: Use perplexity and burstiness metrics.
         """
         # Placeholder implementation
         # TODO: Implement actual BERT-based detection
@@ -517,8 +517,8 @@ class SecurityAgent(BaseAgent):
         
         Returns a score from 0-100 indicating likelihood of plagiarism.
         
-        # TODO Kaustuv: Integrate with plagiarism databases.
-        # TODO Kaustuv: Use semantic similarity with known sources.
+        # TODO: Integrate with plagiarism databases.
+        # TODO: Use semantic similarity with known sources.
         """
         # Placeholder implementation
         # TODO: Implement actual plagiarism detection

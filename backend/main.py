@@ -4,6 +4,8 @@ SmartEvaluator-Omni - Main FastAPI Application
 
 This is the entry point for the Multi-Agent Swarm examination grading system.
 All routes are async to handle parallel LLM inference efficiently.
+
+Created by: Divya Mohan (Software Architect)
 """
 
 import asyncio
