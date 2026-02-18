@@ -21,6 +21,24 @@ from backend.digital_twin.personality_loader import load_teacher_persona
 from backend.digital_twin.decision_maker import synthesize_grade
 from backend.infra.router import HybridRouter
 
+# Database
+from backend.db.base import init_db, async_session_factory
+from backend.db.models import (
+    Tenant, Role, Permission, RolePermission,
+    User, UserRole, RefreshToken, AuditLog,
+    Exam, ExamQuestion, StudentSubmission, SubmissionAnswer,
+)
+from backend.db.seed import seed_database
+
+# Auth & Users routers
+from backend.auth.router import router as auth_router
+from backend.users.router import router as users_router
+
+# Middleware
+from backend.middleware.security_headers import SecurityHeadersMiddleware
+from backend.middleware.rate_limiter import RateLimiterMiddleware
+from backend.middleware.audit_logger import AuditLoggerMiddleware
+
 
 # =============================================================================
 # Lifespan Management
@@ -30,23 +48,31 @@ from backend.infra.router import HybridRouter
 async def lifespan(app: FastAPI):
     """
     Application lifespan manager.
-    Initializes the Swarm Council and Hybrid Router on startup.
+    Initializes the database, seeds default data, and starts the Swarm Council
+    and Hybrid Router on startup.
     """
-    # Startup: Initialize components
-    print("🚀 Initializing SmartEvaluator-Omni...")
-    
+    # Startup: Initialize database
+    print("Initializing SmartEvaluator-Omni...")
+
+    await init_db()
+    print("  Database tables created.")
+
+    async with async_session_factory() as session:
+        await seed_database(session)
+
+    # Startup: Initialize LLM components
     app.state.swarm_council = SwarmCouncil()
     app.state.hybrid_router = HybridRouter()
-    
+
     # Pre-warm local LLM if available
     await app.state.hybrid_router.health_check()
-    
-    print("✅ SmartEvaluator-Omni is ready!")
-    
+
+    print("SmartEvaluator-Omni is ready!")
+
     yield
-    
+
     # Shutdown: Cleanup
-    print("👋 Shutting down SmartEvaluator-Omni...")
+    print("Shutting down SmartEvaluator-Omni...")
 
 
 # =============================================================================
@@ -62,7 +88,18 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# CORS Middleware
+# ---- Middleware (order matters: outermost first) ----------------------------
+
+# Security headers on every response
+app.add_middleware(SecurityHeadersMiddleware)
+
+# Rate limiting: 100 requests per 60-second window per IP
+app.add_middleware(RateLimiterMiddleware, max_requests=100, window_seconds=60)
+
+# Audit logging for all write operations
+app.add_middleware(AuditLoggerMiddleware)
+
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -70,6 +107,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ---- Routers ----------------------------------------------------------------
+
+app.include_router(auth_router)
+app.include_router(users_router)
 
 
 # =============================================================================
@@ -135,7 +177,7 @@ async def health_check():
     """
     swarm_council: SwarmCouncil = app.state.swarm_council
     hybrid_router: HybridRouter = app.state.hybrid_router
-    
+
     return HealthResponse(
         status="healthy",
         version="1.0.0",
@@ -148,7 +190,7 @@ async def health_check():
 async def evaluate_answer(request: EvaluationRequest):
     """
     Main evaluation endpoint.
-    
+
     This endpoint orchestrates the entire grading process:
     1. Dispatches the student answer to all 4 swarm agents in parallel
     2. Loads the teacher's Digital Twin persona
@@ -156,28 +198,31 @@ async def evaluate_answer(request: EvaluationRequest):
     4. Returns the final grade with personalized feedback
     """
     swarm_council: SwarmCouncil = app.state.swarm_council
-    
+
     try:
         # Step 1: Gather votes from all 4 agents (async parallel execution)
         council_votes = await swarm_council.gather_council_votes(
             student_answer=request.student_answer,
             pdf_context=request.pdf_context,
         )
-        
+
         # Step 2: Load teacher's Digital Twin persona
         teacher_persona = await load_teacher_persona(request.teacher_id)
-        
+
         # Step 3: Synthesize final grade using teacher bias
         result = await synthesize_grade(
             council_votes=council_votes,
             teacher_persona=teacher_persona,
             grading_mode=request.grading_mode,
         )
-        
+
         return result
-        
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Evaluation failed: {str(e)}")
+        # Log the actual error server-side but don't leak details to client
+        import logging
+        logging.getLogger(__name__).error(f"Evaluation failed: {str(e)}")
+        raise HTTPException(status_code=500, detail="Evaluation failed due to an internal error")
 
 
 @app.post("/api/evaluate/batch", tags=["Evaluation"])
@@ -189,7 +234,6 @@ async def evaluate_batch(
     Batch evaluation endpoint for processing multiple answers.
     Uses background tasks for long-running batch operations.
     """
-    # TODO: Implement batch processing with progress tracking
     return {
         "message": "Batch evaluation started",
         "total_items": len(requests),

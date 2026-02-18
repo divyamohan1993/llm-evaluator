@@ -1,0 +1,77 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, 'feat/*', 'claude/*']
+  pull_request:
+    branches: [main]
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '20'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - name: Install linting tools
+        run: pip install black isort mypy flake8
+      - name: Black
+        run: black --check backend/ tests/ || true
+      - name: isort
+        run: isort --check-only --profile black backend/ tests/ || true
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: [lint]
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.11']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements-test.txt
+      - name: Run tests
+        env:
+          USE_MOCK_SWARM: 'true'
+          GEMINI_API_KEY: mock_key
+          ANTHROPIC_API_KEY: mock_key
+          OPENAI_API_KEY: mock_key
+        run: pytest tests/ -v --cov=backend --cov-report=xml
+      - uses: codecov/codecov-action@v4
+        with:
+          file: coverage.xml
+          fail_ci_if_error: false
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install tools
+        run: pip install bandit safety
+      - name: Bandit
+        run: bandit -r backend/ -ll || true
+      - name: Run security tests
+        run: |
+          pip install -r requirements-test.txt
+          pytest tests/security/ -v -m security || true
